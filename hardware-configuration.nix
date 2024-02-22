@@ -67,7 +67,7 @@
   zramSwap = {
     enable = true;
     priority = 10;
-    algoritm = "zstd"
+    algorithm = "zstd";
   };
 
   services = {
