@@ -86,6 +86,8 @@ in
       pinentry
       pinentry-qt
       telegram-desktop
+      syncthing
+      veracrypt
     ];
   };
 
