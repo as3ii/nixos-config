@@ -44,7 +44,14 @@ in
   services.xserver.enable = true;
 
   # Enable the Plasma 5 Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.sddm = {
+    enable = true;
+    autoNumlock = true;
+    enableHidpi = true;
+    settings = {
+      General = { GreeterEnvironment = "QT_SCREEN_SCALE_FACTPRS=2"; };
+    };
+  };
   services.xserver.desktopManager.plasma5.enable = true;
 
   # Configure keymap in X11
