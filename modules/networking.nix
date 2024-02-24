@@ -4,7 +4,7 @@
   # Enable networking
   networking = {
     networkmanager.enable = true;
-    #enableIPv6 = true;
+    enableIPv6 = true;
   };
 
   # Configure network proxy if necessary

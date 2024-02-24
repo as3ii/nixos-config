@@ -59,6 +59,7 @@
   environment.systemPackages = with pkgs; [
     usbutils
     pciutils
+    file
     dig
     git
     htop
