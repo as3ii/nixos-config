@@ -49,7 +49,7 @@ in
     autoNumlock = true;
     enableHidpi = true;
     settings = {
-      General = { GreeterEnvironment = "QT_SCREEN_SCALE_FACTPRS=2"; };
+      General = { GreeterEnvironment = "QT_SCREEN_SCALE_FACTORS=2"; };
     };
   };
   services.xserver.desktopManager.plasma5.enable = true;
