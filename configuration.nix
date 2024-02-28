@@ -38,7 +38,7 @@ in
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Hostname
-  networking.hostName = "nixos-as3ii";
+  networking.hostName = "as3ii-thinkpad-nixos";
   
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -73,21 +73,30 @@ in
     isNormalUser = true;
     extraGroups = [ "video" "audio" "input" "tty" "networkmanager" "wheel" ];
     packages = with pkgs; [
+      # CLI tools
+      xdotool
+      xsel
+      eza
+      bat
+      fzf
+      btop
+      pinentry
+      unstable.rbw
+      espanso
+      mediainfo
+      starship
+      # GUI
       firefox
-      neovim
       alacritty
       (mpv.override { scripts = with mpvScripts; [ visualizer quality-menu mpris ]; })
       ff2mpv
-      unstable.rbw
-      xdotool
-      xsel
       rofi
       rofi-rbw
-      pinentry
       pinentry-qt
       telegram-desktop
-      syncthing
+      unstable.syncthing
       veracrypt
+      zathura
     ];
   };
 
@@ -100,7 +109,7 @@ in
   };
 
   # List services that you want to enable:
-  services.espanso.enable = true;
+  #services.espanso.enable = true; # shell/script vars types are broken
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
