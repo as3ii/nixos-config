@@ -111,6 +111,9 @@ in
   # List services that you want to enable:
   #services.espanso.enable = true; # shell/script vars types are broken
 
+  services.flatpak.enable = true;   # Enable flatpak
+  xdg.portal.enable = true;         # Enable xdg desktop portals
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
