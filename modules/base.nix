@@ -66,6 +66,16 @@
     (neovim.override { vimAlias = true; viAlias = true; })
   ];
 
+  environment.variables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+    PAGER = "less";
+    LESS = "-R";
+    LESSHISTFILE = "-";
+    HISTCONTROL = "ignoredups,erasedups";
+    HISTSIZE = "10000";
+  };
+
   # Fonts
   fonts.packages = with pkgs; [
     noto-fonts
