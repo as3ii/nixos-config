@@ -63,6 +63,7 @@
     dig
     git
     htop
+    bash-completion
     (neovim.override { vimAlias = true; viAlias = true; })
   ];
 
@@ -72,7 +73,7 @@
     PAGER = "less";
     LESS = "-R";
     LESSHISTFILE = "-";
-    HISTCONTROL = "ignoredups,erasedups";
+    HISTCONTROL = "ignorespace:erasedups";
     HISTSIZE = "10000";
   };
 
