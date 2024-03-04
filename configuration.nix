@@ -25,10 +25,16 @@ in
       "${nixos-hardware}/common/gpu/nvidia/prime.nix"
     ];
 
-  hardware.nvidia.prime = {
-    # GPU Bus ID, converted from hex to decimal
-    amdgpuBusId = "PCI:198:0:0";
-    nvidiaBusId = "PCI:0:1:0";
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = true;
+    powerManagement.finegrained = true;
+    dynamicBoost.enable = true;
+    prime = {
+      # GPU Bus ID, converted from hex to decimal
+      amdgpuBusId = "PCI:198:0:0";
+      nvidiaBusId = "PCI:0:1:0";
+    };
   };
 
   # Use the systemd-boot EFI boot loader.
@@ -42,6 +48,7 @@ in
   
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   # Enable the Plasma 5 Desktop Environment.
   services.xserver.displayManager.sddm = {
