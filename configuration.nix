@@ -87,11 +87,13 @@ in
       bat
       fzf
       btop
+      radeontop
       pinentry
       unstable.rbw
       espanso
       mediainfo
       starship
+      joshuto
       # GUI
       firefox
       alacritty
@@ -120,6 +122,8 @@ in
 
   services.flatpak.enable = true;   # Enable flatpak
   xdg.portal.enable = true;         # Enable xdg desktop portals
+
+  systemd.services.modem-manager.enable = false;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
