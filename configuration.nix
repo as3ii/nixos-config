@@ -47,8 +47,13 @@ in
   networking.hostName = "as3ii-thinkpad-nixos";
   
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "nvidia" ];
+    excludePackages = with pkgs; [
+      xterm
+    ];
+  };
 
   # Enable the Plasma 5 Desktop Environment.
   services.xserver.displayManager.sddm = {
@@ -60,6 +65,9 @@ in
     };
   };
   services.xserver.desktopManager.plasma5.enable = true;
+  environment.plasma5.excludePackages = with pkgs; [
+    libsForQt5.elisa
+  ];
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -88,6 +96,8 @@ in
       fzf
       btop
       radeontop
+      s-tui
+      powertop
       pinentry
       unstable.rbw
       espanso
