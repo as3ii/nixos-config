@@ -55,7 +55,7 @@ in
     ];
   };
 
-  # Enable the Plasma 5 Desktop Environment.
+  # Enable the Plasma 6 Desktop Environment.
   services.xserver.displayManager.sddm = {
     enable = true;
     autoNumlock = true;
@@ -64,8 +64,8 @@ in
       General = { GreeterEnvironment = "QT_SCREEN_SCALE_FACTORS=2"; };
     };
   };
-  services.xserver.desktopManager.plasma5.enable = true;
-  environment.plasma5.excludePackages = with pkgs; [
+  services.xserver.desktopManager.plasma6.enable = true;
+  environment.plasma6.excludePackages = with pkgs; [
     libsForQt5.elisa
   ];
 
@@ -89,8 +89,10 @@ in
     extraGroups = [ "video" "audio" "input" "tty" "networkmanager" "wheel" ];
     packages = with pkgs; [
       # CLI tools
-      xdotool
-      xsel
+      #xdotool
+      #xsel
+      wl-clipboard
+      wtype
       eza
       bat
       fzf
@@ -100,7 +102,7 @@ in
       powertop
       pinentry
       unstable.rbw
-      espanso
+      espanso-wayland
       mediainfo
       starship
       joshuto
@@ -109,8 +111,8 @@ in
       alacritty
       (mpv.override { scripts = with mpvScripts; [ visualizer quality-menu mpris ]; })
       ff2mpv
-      rofi
-      rofi-rbw
+      wofi
+      rofi-rbw-wayland
       pinentry-qt
       telegram-desktop
       unstable.syncthing

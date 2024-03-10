@@ -22,7 +22,7 @@
       enable = true;
       allowReboot = false;
       dates = "Sat";
-      channel = "https://channels.nixos.org/nixos-23.11";
+      channel = "https://channels.nixos.org/nixos-unstable";
     };
   };
   
