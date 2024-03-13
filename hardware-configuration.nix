@@ -77,6 +77,24 @@
       interval = "weekly";
       fileSystems = [ "/" ];
     };
+    btrbk = {
+      instances."local" = {
+        onCalendar = "weekly";
+        settings = {
+          snapshot_preserve = "14d";
+          snapshot_preserve_min = "2d";
+          snapshot_create = "always";
+          volume."/btrfs_root" = {
+            snapshot_dir = "@snapshot";
+            #target = "/snapshot";
+            subvolume = {
+              "@home" = { };
+              "@" = { };
+            };
+          };
+        };
+      };
+    };
   };
 
   # Some default options
