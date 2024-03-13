@@ -41,7 +41,8 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.consoleMode = "auto";
   boot.loader.efi.canTouchEfiVariables = false;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_7;
 
   # Hostname
   networking.hostName = "as3ii-thinkpad-nixos";
@@ -64,7 +65,7 @@ in
       General = { GreeterEnvironment = "QT_SCREEN_SCALE_FACTORS=2"; };
     };
   };
-  services.xserver.desktopManager.plasma6.enable = true;
+  services.desktopManager.plasma6.enable = true;
   environment.plasma6.excludePackages = with pkgs; [
     libsForQt5.elisa
   ];
@@ -104,6 +105,10 @@ in
       unstable.rbw
       espanso-wayland
       mediainfo
+      exiftool
+      glxinfo
+      vulkan-tools
+      wayland-utils
       starship
       joshuto
       # GUI
@@ -114,6 +119,9 @@ in
       wofi
       rofi-rbw-wayland
       pinentry-qt
+      qpwgraph
+      kcc
+      calibre
       telegram-desktop
       unstable.syncthing
       veracrypt
