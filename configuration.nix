@@ -155,6 +155,10 @@ in
     enable = true;
     enableSSHSupport = true;
   };
+  programs.gnupg.agent.pinentryPackage = lib.mkForce pkgs.pinentry-qt;
+
+  # enable direnv
+  programs.direnv.enable = true;
 
   # List services that you want to enable:
   #services.espanso.enable = true; # shell/script vars types are broken
@@ -162,16 +166,28 @@ in
   services.flatpak.enable = true;   # Enable flatpak
   xdg.portal.enable = true;         # Enable xdg desktop portals
 
+  # tailscale
+  services.tailscale = {
+    enable = true;
+    extraUpFlags = [
+      "--accept-routes"
+      "--accept-dns"
+    ];
+  };
+
   systemd.services.modem-manager.enable = false;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.allowedTCPPorts = [
+    22000   # syncthing: TCP based sync protocol traffic
+  ];
+  networking.firewall.allowedUDPPorts = [
+    22000   # syncthing: QUIC based sync protocol traffic
+    21027   # syncthing: for discovery broadcasts on IPv4 and multicasts on IPv6
+  ];
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
