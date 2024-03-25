@@ -90,39 +90,58 @@ in
     extraGroups = [ "video" "audio" "input" "tty" "networkmanager" "wheel" ];
     packages = with pkgs; [
       # CLI tools
-      #xdotool
-      #xsel
-      wl-clipboard
-      wtype
       eza
       bat
-      fzf
       btop
       radeontop
       s-tui
       powertop
-      pinentry
-      unstable.rbw
-      espanso-wayland
-      mediainfo
-      exiftool
       glxinfo
       vulkan-tools
       wayland-utils
       starship
+
+      # terminal file manager
+      exiftool
+      mediainfo
+      fzf
       joshuto
-      # GUI
-      firefox
-      alacritty
-      (mpv.override { scripts = with mpvScripts; [ visualizer quality-menu mpris ]; })
-      ff2mpv
-      wofi
-      rofi-rbw-wayland
+
+      # Programming
+      python3
+
+      # rbw
+      pinentry
       pinentry-qt
+      unstable.rbw
+      rofi-rbw-wayland
+
+      # espanso
+      #xdotool
+      #xsel
+      #espanso
+      wl-clipboard
+      wtype
+      espanso-wayland
+
+      # Audio
+      calf
+      easyeffects
       qpwgraph
+      spotify
+
+      # GUI
+      alacritty
+      bleachbit
+      ff2mpv
+      (yt-dlp.override { withAlias = true; })
+      (mpv.override { scripts = with mpvScripts; [ visualizer quality-menu mpris ]; })
+      (firefox.override { nativeMessagingHosts = with pkgs; [ ff2mpv ]; })
+      wofi
       kcc
       calibre
       telegram-desktop
+      thunderbird
       unstable.syncthing
       veracrypt
       zathura
