@@ -41,8 +41,8 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.consoleMode = "auto";
   boot.loader.efi.canTouchEfiVariables = false;
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_6_7;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_6_7;
 
   # Hostname
   networking.hostName = "as3ii-thinkpad-nixos";
@@ -179,3 +179,4 @@ in
 
 }
 
+# vim: sw=2
