@@ -55,7 +55,7 @@
   fileSystems."/swap" =
     { device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
       fsType = "btrfs";
-      options = [ "discard=async" "noatime" "nocow" "autodefrag" "subvol=@swap" ];
+      options = [ "discard=async" "noatime" "autodefrag" "subvol=@swap" ];
     };
 
   fileSystems."/boot" =
@@ -79,7 +79,7 @@
     };
     btrbk = {
       instances."local" = {
-        onCalendar = "weekly";
+        onCalendar = "Mon,Thu *-*-*";   # 2 times a week
         settings = {
           snapshot_preserve = "14d";
           snapshot_preserve_min = "2d";
