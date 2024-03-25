@@ -22,6 +22,7 @@
       enable = true;
       allowReboot = false;
       dates = "Sat";
+      flags = ["-p" "unstable"];
       channel = "https://channels.nixos.org/nixos-unstable";
     };
   };
