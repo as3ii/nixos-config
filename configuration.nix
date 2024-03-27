@@ -40,8 +40,11 @@ in
   };
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.consoleMode = "auto";
+  boot.loader.systemd-boot = {
+    enable = true;
+    consoleMode = "auto";
+    configurationLimit = 15;
+  };
   boot.loader.efi.canTouchEfiVariables = false;
   boot.kernelPackages = pkgs.linuxPackages_latest;
   #boot.kernelPackages = pkgs.linuxPackages_6_7;
