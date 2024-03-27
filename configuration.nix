@@ -145,6 +145,8 @@ in
       telegram-desktop
       thunderbird
       unstable.syncthing
+      unstable.steam
+      unstable.steam-run
       veracrypt
       zathura
     ];
