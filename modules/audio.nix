@@ -1,10 +1,10 @@
 { ... }:
 
 {
-  # Enable sound
-  sound.enable = true;
-  hardware.pulseaudio.enable = false; # Disable pulseaudio
-  
+  # Disable alsa and pulseaudio
+  sound.enable = false;
+  hardware.pulseaudio.enable = false;
+
   # Setup pipewire
   security.rtkit.enable = true;
   services.pipewire = {
@@ -13,5 +13,5 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
-  }; 
+  };
 }

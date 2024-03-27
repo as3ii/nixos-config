@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 { config, lib, pkgs, ... }:
 
 {
@@ -26,7 +22,7 @@
       channel = "https://channels.nixos.org/nixos-unstable";
     };
   };
-  
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = lib.mkDefault true;
 
@@ -92,5 +88,8 @@
 
   # Firmware updates
   services.fwupd.enable = true;
+
+  # use dbus-broker instead of the old dbus implementation
+  services.dbus.implementation = "broker";
 }
 
