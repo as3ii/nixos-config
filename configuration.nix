@@ -5,7 +5,6 @@
 { config, lib, pkgs, ... }:
 
 let
-   #nixos-hardware = fetchTarball https://github.com/NixOS/nixos-hardware/archive/master.tar.gz;
    nixos-hardware = fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; };
 in
 {
@@ -17,8 +16,6 @@ in
       ./modules/audio.nix
       ./modules/bluetooth.nix
       ./modules/networking.nix
-      #./modules/video-opengl.nix
-      #./modules/nvidia-prime.nix
       "${nixos-hardware}/common/pc/ssd"
       "${nixos-hardware}/common/cpu/amd"
       "${nixos-hardware}/common/gpu/amd"
@@ -37,6 +34,11 @@ in
     };
   };
 
+  hardware.trackpoint = {
+    enable = true;
+    emulateWheel = true;
+  };
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.consoleMode = "auto";
@@ -46,7 +48,7 @@ in
 
   # Hostname
   networking.hostName = "as3ii-thinkpad-nixos";
-  
+
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
@@ -84,7 +86,7 @@ in
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.as3ii = {
     isNormalUser = true;
     extraGroups = [ "video" "audio" "input" "tty" "networkmanager" "wheel" ];
@@ -174,8 +176,6 @@ in
       "--accept-dns"
     ];
   };
-
-  systemd.services.modem-manager.enable = false;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
