@@ -5,7 +5,7 @@
 { config, lib, pkgs, ... }:
 
 let
-   nixos-hardware = fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; };
+  nixos-hardware = fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; };
 in
 {
   imports =
@@ -15,6 +15,7 @@ in
       ./modules/nixos-unstable.nix
       ./modules/audio.nix
       ./modules/bluetooth.nix
+      ./modules/container.nix
       ./modules/networking.nix
       "${nixos-hardware}/common/pc/ssd"
       "${nixos-hardware}/common/cpu/amd"
@@ -105,6 +106,9 @@ in
       vulkan-tools
       wayland-utils
       starship
+      podman
+      podman-compose
+      distrobox
 
       # terminal file manager
       exiftool
@@ -145,6 +149,8 @@ in
       wofi
       kcc
       calibre
+      handbrake
+      discord
       telegram-desktop
       thunderbird
       unstable.syncthing
