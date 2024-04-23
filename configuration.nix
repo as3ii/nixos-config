@@ -63,7 +63,7 @@ in
   };
 
   # Enable the Plasma 6 Desktop Environment.
-  services.xserver.displayManager.sddm = {
+  services.displayManager.sddm = {
     enable = true;
     autoNumlock = true;
     enableHidpi = true;
@@ -96,6 +96,7 @@ in
     extraGroups = [ "video" "audio" "input" "tty" "networkmanager" "wheel" ];
     packages = with pkgs; [
       # CLI tools
+      unzip
       eza
       bat
       btop
@@ -130,7 +131,7 @@ in
       #xsel
       #espanso
       wl-clipboard
-      wtype
+      ydotool
       espanso-wayland
 
       # Audio
@@ -142,6 +143,7 @@ in
       # GUI
       alacritty
       bleachbit
+      discover
       ff2mpv
       (yt-dlp.override { withAlias = true; })
       (mpv.override { scripts = with mpvScripts; [ visualizer quality-menu mpris ]; })
@@ -153,6 +155,7 @@ in
       discord
       telegram-desktop
       thunderbird
+      kgpg
       unstable.syncthing
       unstable.steam
       unstable.steam-run
