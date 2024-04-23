@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   nix = {
@@ -18,8 +18,8 @@
       enable = true;
       allowReboot = false;
       dates = "Sat";
+      flake = inputs.self.outPath;
       flags = ["-p" "unstable"];
-      channel = "https://channels.nixos.org/nixos-unstable";
     };
   };
 

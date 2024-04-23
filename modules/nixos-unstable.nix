@@ -1,11 +1,10 @@
-{ config, ... }:
+{ config, nixpkgs-unstable, ... }:
 
 {
   nixpkgs.config = {
     packageOverrides = pkgs: {
-      unstable = import (
-        fetchTarball https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz
-      ) {
+      unstable = {
+        inherit nixpkgs-unstable;
         config = config.nixpkgs.config;
       };
     };

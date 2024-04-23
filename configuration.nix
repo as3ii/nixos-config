@@ -2,11 +2,8 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, nixos-hardware, ... }:
 
-let
-  nixos-hardware = fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; };
-in
 {
   imports =
     [
@@ -17,10 +14,10 @@ in
       ./modules/bluetooth.nix
       ./modules/container.nix
       ./modules/networking.nix
-      "${nixos-hardware}/common/pc/ssd"
-      "${nixos-hardware}/common/cpu/amd"
-      "${nixos-hardware}/common/gpu/amd"
-      "${nixos-hardware}/common/gpu/nvidia/prime.nix"
+      nixos-hardware.nixosModules.common-pc-ssd
+      nixos-hardware.nixosModules.common-cpu-amd
+      nixos-hardware.nixosModules.common-gpu-amd
+      nixos-hardware.nixosModules.common-gpu-nvidia-prime
     ];
 
   hardware.nvidia = {
