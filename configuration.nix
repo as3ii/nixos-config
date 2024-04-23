@@ -138,6 +138,11 @@ in
       podman-compose
       distrobox
 
+      # Nix-specific tools
+      nh                    # nix helper
+      nix-output-monitor    # nix wrapper, nice output
+      nvd                   # nixos diff generations
+
       # terminal file manager
       exiftool
       mediainfo
