@@ -146,6 +146,10 @@ in
 
       # Programming
       python3
+      clang
+      llvmPackages.bintools
+      rustup
+      go
 
       # rbw
       pinentry
