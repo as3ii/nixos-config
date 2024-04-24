@@ -14,11 +14,34 @@
     # };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, ... }@inputs: {
+  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, ... }@inputs:
+  let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+
+      config.allowUnfree = true;
+
+      overlays = [
+        (self: super: {
+          unstable = import nixpkgs-unstable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+          stable = import nixpkgs-stable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        })
+      ];
+    };
+  in {
     nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
+      inherit pkgs system;
+
+      #specialArgs = {inherit inputs;};
       modules = [
-        ./configuration.nix
+        (import ./configuration.nix inputs)
         # inputs.home-manager.nixosModules.default
       ];
     };

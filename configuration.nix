@@ -1,15 +1,14 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ config, lib, pkgs, nixos-hardware, ... }:
+{ nixos-hardware, ...}:
+{ config, lib, pkgs, ... }:
 
 {
   imports =
     [
       ./hardware-configuration.nix
       ./modules/base.nix
-      ./modules/nixos-unstable.nix
       ./modules/audio.nix
       ./modules/bluetooth.nix
       ./modules/container.nix
@@ -17,7 +16,7 @@
       nixos-hardware.nixosModules.common-pc-ssd
       nixos-hardware.nixosModules.common-cpu-amd
       nixos-hardware.nixosModules.common-gpu-amd
-      nixos-hardware.nixosModules.common-gpu-nvidia-prime
+      nixos-hardware.nixosModules.common-gpu-nvidia
     ];
 
   hardware.nvidia = {

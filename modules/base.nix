@@ -23,9 +23,6 @@
     };
   };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = lib.mkDefault true;
-
   # Mount a tmpfs on /tmp during boot
   boot.tmp.useTmpfs = true;
 
