@@ -19,12 +19,8 @@
       allowReboot = false;
       dates = "Sat";
       flags = ["-p" "unstable"];
-      channel = "https://channels.nixos.org/nixos-unstable";
     };
   };
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = lib.mkDefault true;
 
   # Mount a tmpfs on /tmp during boot
   boot.tmp.useTmpfs = true;
