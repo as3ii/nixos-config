@@ -189,6 +189,8 @@
       thunderbird
       kgpg
       unstable.syncthing
+      mangohud
+      protonup-qt
       unstable.steam
       unstable.steam-run
       veracrypt
