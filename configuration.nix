@@ -133,6 +133,7 @@
       podman
       podman-compose
       distrobox
+      compsize
 
       # Nix-specific tools
       nh                    # nix helper
