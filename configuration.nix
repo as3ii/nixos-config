@@ -120,6 +120,8 @@
     packages = with pkgs; [
       # CLI tools
       unzip
+      p7zip
+      unrar
       eza
       bat
       btop
