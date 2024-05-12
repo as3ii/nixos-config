@@ -18,7 +18,6 @@
       enable = true;
       allowReboot = false;
       dates = "Sat";
-      flags = ["-p" "unstable"];
     };
   };
 
