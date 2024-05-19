@@ -116,7 +116,7 @@
   # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.as3ii = {
     isNormalUser = true;
-    extraGroups = [ "video" "audio" "input" "tty" "networkmanager" "wheel" ];
+    extraGroups = [ "video" "audio" "input" "tty" "dialout" "networkmanager" "wheel" ];
     packages = with pkgs; [
       # CLI tools
       unzip
