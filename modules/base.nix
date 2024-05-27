@@ -70,14 +70,17 @@
   };
 
   # Fonts
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    font-awesome
-    jetbrains-mono
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-  ];
+  fonts = {
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      font-awesome
+      jetbrains-mono
+      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    ];
+    fontDir.enable = true;
+  };
 
   # List services that you want to enable:
 

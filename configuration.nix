@@ -175,6 +175,11 @@
       qpwgraph
       spotify
 
+      # spellcheck (required by libreoffice)
+      hunspell
+      hunspellDicts.it_IT
+      hunspellDicts.en_US
+
       # GUI
       alacritty
       bleachbit
@@ -186,6 +191,7 @@
       wofi
       kcc
       calibre
+      libreoffice-qt6-fresh
       handbrake
       discord
       telegram-desktop
