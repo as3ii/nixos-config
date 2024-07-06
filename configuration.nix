@@ -128,6 +128,7 @@
       radeontop
       s-tui
       powertop
+      libva-utils
       glxinfo
       vulkan-tools
       wayland-utils
