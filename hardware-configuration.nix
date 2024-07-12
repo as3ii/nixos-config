@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
@@ -17,49 +18,57 @@
   boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/2b85c77d-fd5e-42aa-a2e0-0e8694a162d6";
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
+    {
+      device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
       fsType = "btrfs";
       options = [ "discard=async" "noatime" "compress=zstd:2" "autodefrag" "subvol=@" ];
     };
 
   fileSystems."/btrfs_root" =
-    { device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
+    {
+      device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
       fsType = "btrfs";
       options = [ "discard=async" "noatime" "autodefrag" ];
     };
 
   fileSystems."/snapshot" =
-    { device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
+    {
+      device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
       fsType = "btrfs";
       options = [ "discard=async" "noatime" "compress=zstd:2" "autodefrag" "subvol=@snapshot" ];
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
+    {
+      device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
       fsType = "btrfs";
       options = [ "discard=async" "noatime" "compress=zstd:2" "autodefrag" "subvol=@home" ];
     };
 
   fileSystems."/root" =
-    { device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
+    {
+      device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
       fsType = "btrfs";
       options = [ "discard=async" "noatime" "compress=zstd:2" "autodefrag" "subvol=@root" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
+    {
+      device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
       fsType = "btrfs";
       options = [ "discard=async" "noatime" "compress=zstd:2" "autodefrag" "subvol=@nix" ];
     };
 
   fileSystems."/swap" =
-    { device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
+    {
+      device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
       fsType = "btrfs";
       options = [ "discard=async" "noatime" "autodefrag" "subvol=@swap" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/7C50-69E2";
+    {
+      device = "/dev/disk/by-uuid/7C50-69E2";
       fsType = "vfat";
       options = [ "umask=0077" ];
     };
@@ -79,7 +88,7 @@
     };
     btrbk = {
       instances."local" = {
-        onCalendar = "Mon,Thu *-*-*";   # 2 times a week
+        onCalendar = "Mon,Thu *-*-*"; # 2 times a week
         settings = {
           snapshot_preserve = "14d";
           snapshot_preserve_min = "2d";

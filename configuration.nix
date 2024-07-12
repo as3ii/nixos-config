@@ -1,8 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-{ nixos-hardware, ...}:
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputt, ... }:
 
 {
   imports =
@@ -13,10 +12,6 @@
       ./modules/bluetooth.nix
       ./modules/container.nix
       ./modules/networking.nix
-      nixos-hardware.nixosModules.common-pc-ssd
-      nixos-hardware.nixosModules.common-cpu-amd
-      nixos-hardware.nixosModules.common-gpu-amd
-      nixos-hardware.nixosModules.common-gpu-nvidia
     ];
 
   hardware.nvidia = {
@@ -111,7 +106,7 @@
   services.printing.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.as3ii = {
@@ -139,9 +134,9 @@
       compsize
 
       # Nix-specific tools
-      nh                    # nix helper
-      nix-output-monitor    # nix wrapper, nice output
-      nvd                   # nixos diff generations
+      nh # nix helper
+      nix-output-monitor # nix wrapper, nice output
+      nvd # nixos diff generations
 
       # terminal file manager
       exiftool
@@ -223,8 +218,8 @@
   # List services that you want to enable:
   #services.espanso.enable = true; # shell/script vars types are broken
 
-  services.flatpak.enable = true;   # Enable flatpak
-  xdg.portal.enable = true;         # Enable xdg desktop portals
+  services.flatpak.enable = true; # Enable flatpak
+  xdg.portal.enable = true; # Enable xdg desktop portals
 
   # tailscale
   services.tailscale = {
@@ -240,11 +235,11 @@
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
-    22000   # syncthing: TCP based sync protocol traffic
+    22000 # syncthing: TCP based sync protocol traffic
   ];
   networking.firewall.allowedUDPPorts = [
-    22000   # syncthing: QUIC based sync protocol traffic
-    21027   # syncthing: for discovery broadcasts on IPv4 and multicasts on IPv6
+    22000 # syncthing: QUIC based sync protocol traffic
+    21027 # syncthing: for discovery broadcasts on IPv4 and multicasts on IPv6
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system
