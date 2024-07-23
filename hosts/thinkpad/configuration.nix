@@ -83,6 +83,7 @@
   # Enable the Plasma 6 Desktop Environment.
   services.displayManager.sddm = {
     enable = true;
+    wayland.enable = true;
     autoNumlock = true;
     enableHidpi = true;
     settings = {
@@ -90,6 +91,9 @@
     };
   };
   services.desktopManager.plasma6.enable = true;
+  environment.systemPackages = with pkgs; [
+    kdePackages.plasma-thunderbolt
+  ];
   environment.plasma6.excludePackages = with pkgs; [
     libsForQt5.elisa
   ];
