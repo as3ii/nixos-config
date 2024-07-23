@@ -9,7 +9,7 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 25d";
+      options = "--delete-older-than 30d";
     };
   };
 
@@ -29,7 +29,7 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  # Set reasonable date/time/curency/measurement format
+  # Set reasonable date/time/currency/measurement format
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_IE.UTF-8";
     LC_IDENTIFICATION = "en_IE.UTF-8";
