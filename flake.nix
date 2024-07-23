@@ -48,7 +48,7 @@
           nixos-hardware.nixosModules.common-cpu-amd
           nixos-hardware.nixosModules.common-gpu-amd
           nixos-hardware.nixosModules.common-gpu-nvidia
-          ./configuration.nix
+          ./hosts/thinkpad/configuration.nix
           # inputs.home-manager.nixosModules.default
         ];
       };
