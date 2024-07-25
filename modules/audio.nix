@@ -1,8 +1,7 @@
 { ... }:
 
 {
-  # Disable alsa and pulseaudio
-  sound.enable = false;
+  # Disable pulseaudio
   hardware.pulseaudio.enable = false;
 
   # Setup pipewire

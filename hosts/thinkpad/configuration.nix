@@ -65,8 +65,8 @@
     configurationLimit = 15;
   };
   boot.loader.efi.canTouchEfiVariables = false;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  #boot.kernelPackages = pkgs.linuxPackages_6_7;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_9;
 
   # Hostname
   networking.hostName = "as3ii-thinkpad-nixos";
@@ -86,11 +86,9 @@
     wayland.enable = true;
     autoNumlock = true;
     enableHidpi = true;
-    settings = {
-      General = { GreeterEnvironment = "QT_SCREEN_SCALE_FACTORS=2"; };
-    };
   };
   services.desktopManager.plasma6.enable = true;
+  services.power-profiles-daemon.enable = true;
   environment.systemPackages = with pkgs; [
     kdePackages.plasma-thunderbolt
   ];
