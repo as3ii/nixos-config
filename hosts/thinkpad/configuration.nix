@@ -14,18 +14,6 @@
       ../../modules/networking.nix
     ];
 
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    powerManagement.finegrained = true;
-    dynamicBoost.enable = true;
-    prime = {
-      # GPU Bus ID, converted from hex to decimal
-      amdgpuBusId = "PCI:198:0:0";
-      nvidiaBusId = "PCI:0:1:0";
-    };
-  };
-
   hardware.trackpoint = {
     enable = true;
     emulateWheel = true;
@@ -66,7 +54,7 @@
   };
   boot.loader.efi.canTouchEfiVariables = false;
   #boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_6_9;
+  boot.kernelPackages = pkgs.linuxPackages_6_10;
 
   # Hostname
   networking.hostName = "as3ii-thinkpad-nixos";
@@ -74,11 +62,30 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = lib.mkBefore [ "amdgpu" ];
     excludePackages = with pkgs; [
       xterm
     ];
   };
+
+  # Blacklist nvidia if not configured
+  boot.extraModprobeConfig = lib.mkIf (! builtins.elem "nvidia" config.services.xserver.videoDrivers) ''
+    blacklist nouveau
+    options nouveau modeset=0
+  '';
+  services.udev.extraRules = lib.mkIf (! builtins.elem "nvidia" config.services.xserver.videoDrivers) ''
+    # Remove NVIDIA USB xHCI Host Controller devices, if present
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
+    # Remove NVIDIA USB Type-C UCSI devices, if present
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{power/control}="auto", ATTR{remove}="1"
+    # Remove NVIDIA Audio devices, if present
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto", ATTR{remove}="1"
+    # Remove NVIDIA VGA/3D controller devices
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"
+  '';
+  boot.blacklistedKernelModules = lib.mkIf (! builtins.elem "nvidia" config.services.xserver.videoDrivers) [
+    "nouveau" "nvidia" "nvidia_drm" "nvidia_modeset"
+  ];
 
   # Enable the Plasma 6 Desktop Environment.
   services.displayManager.sddm = {
@@ -265,6 +272,12 @@
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "23.11"; # Did you read the comment?
 
+  # Specialisations
+  specialisation.nvidia.configuration = {
+    imports = [
+      ./nvidia.nix
+    ];
+  };
 }
 
 # vim: sw=2
