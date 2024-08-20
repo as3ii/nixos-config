@@ -12,6 +12,7 @@
       ../../modules/bluetooth.nix
       ../../modules/podman.nix
       ../../modules/networking.nix
+      ./nvidia.nix
     ];
 
   hardware.trackpoint = {
@@ -272,12 +273,6 @@
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "23.11"; # Did you read the comment?
 
-  # Specialisations
-  specialisation.nvidia.configuration = {
-    imports = [
-      ./nvidia.nix
-    ];
-  };
 }
 
 # vim: sw=2

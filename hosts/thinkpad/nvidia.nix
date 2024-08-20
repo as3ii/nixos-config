@@ -1,23 +1,45 @@
-{ input, ... }:
+{ lib, input, ... }:
 
+let
+  amdId = "PCI:198:0:0";
+  nvidiaId = "PCI:0:1:0";
+in
 {
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    powerManagement.finegrained = true;
-    dynamicBoost.enable = true;
-    prime = {
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
+  specialisation.nvidia-offload.configuration = {
+    hardware.nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = true;
+      powerManagement.finegrained = true;
+      dynamicBoost.enable = true;
+      prime = {
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
+        # GPU Bus ID, converted from hex to decimal
+        amdgpuBusId = amdId;
+        nvidiaBusId = nvidiaId;
       };
-      # GPU Bus ID, converted from hex to decimal
-      amdgpuBusId = "PCI:198:0:0";
-      nvidiaBusId = "PCI:0:1:0";
     };
+
+    services.xserver.videoDrivers = lib.mkAfter [ "nvidia" ];
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  specialisation.nvidia-sync.configuration = {
+    hardware.nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = true;
+      dynamicBoost.enable = true;
+      prime = {
+        sync.enable = true;
+        # GPU Bus ID, converted from hex to decimal
+        amdgpuBusId = amdId;
+        nvidiaBusId = nvidiaId;
+      };
+    };
+
+    services.xserver.videoDrivers = lib.mkAfter [ "nvidia" ];
+  };
 }
 
 # vim: sw=2
