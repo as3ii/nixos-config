@@ -60,33 +60,19 @@
   # Hostname
   networking.hostName = "as3ii-thinkpad-nixos";
 
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    videoDrivers = lib.mkBefore [ "amdgpu" ];
+    videoDrivers = [ "amdgpu" ];
     excludePackages = with pkgs; [
       xterm
     ];
   };
-
-  # Blacklist nvidia if not configured
-  boot.extraModprobeConfig = lib.mkIf (! builtins.elem "nvidia" config.services.xserver.videoDrivers) ''
-    blacklist nouveau
-    options nouveau modeset=0
-  '';
-  services.udev.extraRules = lib.mkIf (! builtins.elem "nvidia" config.services.xserver.videoDrivers) ''
-    # Remove NVIDIA USB xHCI Host Controller devices, if present
-    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
-    # Remove NVIDIA USB Type-C UCSI devices, if present
-    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{power/control}="auto", ATTR{remove}="1"
-    # Remove NVIDIA Audio devices, if present
-    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto", ATTR{remove}="1"
-    # Remove NVIDIA VGA/3D controller devices
-    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"
-  '';
-  boot.blacklistedKernelModules = lib.mkIf (! builtins.elem "nvidia" config.services.xserver.videoDrivers) [
-    "nouveau" "nvidia" "nvidia_drm" "nvidia_modeset"
-  ];
 
   # Enable the Plasma 6 Desktop Environment.
   services.displayManager.sddm = {
