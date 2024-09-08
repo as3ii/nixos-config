@@ -123,9 +123,12 @@
       glxinfo
       vulkan-tools
       wayland-utils
+      gamemode
       starship
       distrobox
       compsize
+      smartmontools
+      ffmpeg_7-full
 
       # Nix-specific tools
       nh # nix helper
@@ -174,7 +177,6 @@
       alacritty
       bleachbit
       discover
-      ff2mpv
       (yt-dlp.override { withAlias = true; })
       (mpv.override { scripts = with mpvScripts; [ visualizer quality-menu mpris ]; })
       (firefox.override { nativeMessagingHosts = with pkgs; [ ff2mpv ]; })
@@ -183,6 +185,7 @@
       calibre
       libreoffice-qt6-fresh
       handbrake
+      heroic
       discord
       telegram-desktop
       thunderbird
@@ -195,6 +198,12 @@
       veracrypt
       zathura
     ];
+  };
+
+  # Enable GUI support for Logitech Wireless Devices (solaar)
+  hardware.logitech.wireless = {
+    enable = true;
+    enableGraphical = true;
   };
 
   # Some programs need SUID wrappers, can be configured further or are
