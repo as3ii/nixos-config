@@ -87,12 +87,20 @@
       fileSystems = [ "/" ];
     };
     btrbk = {
-      instances."local" = {
+      instances."btrbk" = {
         onCalendar = "Mon,Thu *-*-*"; # 2 times a week
         settings = {
-          snapshot_preserve = "14d";
-          snapshot_preserve_min = "2d";
-          snapshot_create = "always";
+          timestamp_format = "long";
+          snapshot_preserve = "7d 6w 2m";
+          snapshot_preserve_min = "7d";
+          snapshot_create = "onchange";
+          incremental - "yes";
+          target_preserve = "14d 12w 6m";
+          target_preserve_min = "14d";
+          stream_compress = "zstd";
+          stream_compress_level = "default";
+          stream_compress_long = "default";
+          stream_buffer = "5%";
           volume."/btrfs_root" = {
             snapshot_dir = "@snapshot";
             #target = "/snapshot";
@@ -111,3 +119,5 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
+
+# vim: sw=2
