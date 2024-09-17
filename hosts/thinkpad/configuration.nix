@@ -123,7 +123,6 @@
       glxinfo
       vulkan-tools
       wayland-utils
-      gamemode
       starship
       distrobox
       compsize
@@ -184,7 +183,6 @@
       kcc
       calibre
       libreoffice-qt6-fresh
-      handbrake
       heroic
       discord
       telegram-desktop
