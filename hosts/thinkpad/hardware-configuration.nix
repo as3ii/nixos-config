@@ -94,13 +94,13 @@
           snapshot_preserve = "7d 6w 2m";
           snapshot_preserve_min = "7d";
           snapshot_create = "onchange";
-          incremental - "yes";
+          incremental = "yes";
           target_preserve = "14d 12w 6m";
           target_preserve_min = "14d";
           stream_compress = "zstd";
           stream_compress_level = "default";
           stream_compress_long = "default";
-          stream_buffer = "5%";
+          send_protocol = "2";
           volume."/btrfs_root" = {
             snapshot_dir = "@snapshot";
             #target = "/snapshot";
