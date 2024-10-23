@@ -181,7 +181,7 @@
       (firefox.override { nativeMessagingHosts = with pkgs; [ ff2mpv ]; })
       wofi
       kcc
-      calibre
+      stable.calibre
       libreoffice-qt6-fresh
       heroic
       discord
