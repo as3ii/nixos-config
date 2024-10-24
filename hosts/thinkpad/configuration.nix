@@ -55,7 +55,7 @@
   };
   boot.loader.efi.canTouchEfiVariables = false;
   #boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_6_10;
+  boot.kernelPackages = pkgs.linuxPackages_6_11;
 
   # Hostname
   networking.hostName = "as3ii-thinkpad-nixos";
@@ -181,7 +181,7 @@
       (firefox.override { nativeMessagingHosts = with pkgs; [ ff2mpv ]; })
       wofi
       kcc
-      stable.calibre
+      calibre
       libreoffice-qt6-fresh
       heroic
       discord
