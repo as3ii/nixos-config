@@ -103,7 +103,7 @@
           send_protocol = "2";
           volume."/btrfs_root" = {
             snapshot_dir = "@snapshot";
-            #target = "/snapshot";
+            target = "/mnt/veracrypt2";
             subvolume = {
               "@home" = { };
               "@" = { };
