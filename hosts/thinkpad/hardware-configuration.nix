@@ -93,7 +93,7 @@
           timestamp_format = "long";
           snapshot_preserve = "7d 6w 2m";
           snapshot_preserve_min = "7d";
-          snapshot_create = "onchange";
+          snapshot_create = "always";
           incremental = "yes";
           target_preserve = "14d 12w 6m";
           target_preserve_min = "14d";
