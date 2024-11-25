@@ -73,7 +73,7 @@
       options = [ "umask=0077" ];
     };
 
-  swapDevices = [ ];
+  swapDevices = [{ device = "/swap/swapfile"; }];
   zramSwap = {
     enable = true;
     priority = 10;
