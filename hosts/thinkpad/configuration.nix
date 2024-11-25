@@ -64,6 +64,7 @@
     enable = true;
     enable32Bit = true;
   };
+  hardware.amdgpu.opencl.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver = {
@@ -88,6 +89,7 @@
   ];
   environment.plasma6.excludePackages = with pkgs; [
     libsForQt5.elisa
+    kdePackages.oxygen
   ];
 
   # Configure keymap in X11
@@ -195,6 +197,7 @@
       unstable.steam-run
       veracrypt
       zathura
+      zed-editor
     ];
   };
 
@@ -218,6 +221,9 @@
 
   # List services that you want to enable:
   #services.espanso.enable = true; # shell/script vars types are broken
+
+  # Thunderbolt
+  services.hardware.bolt.enable = true;
 
   services.flatpak.enable = true; # Enable flatpak
   xdg.portal.enable = true; # Enable xdg desktop portals
