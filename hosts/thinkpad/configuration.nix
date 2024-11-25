@@ -184,7 +184,7 @@
       wofi
       kcc
       calibre
-      libreoffice-qt6-fresh
+      stable.libreoffice-qt6-fresh
       heroic
       discord
       telegram-desktop
