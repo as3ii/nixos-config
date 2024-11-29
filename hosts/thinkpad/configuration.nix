@@ -86,9 +86,11 @@
   services.power-profiles-daemon.enable = true;
   environment.systemPackages = with pkgs; [
     kdePackages.plasma-thunderbolt
+    kdePackages.discover
   ];
   environment.plasma6.excludePackages = with pkgs; [
     libsForQt5.elisa
+    libsForQt5.discover
     kdePackages.oxygen
   ];
 
