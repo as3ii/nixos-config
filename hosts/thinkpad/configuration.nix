@@ -179,7 +179,6 @@
       # GUI
       alacritty
       bleachbit
-      discover
       (yt-dlp.override { withAlias = true; })
       (mpv.override { scripts = with mpvScripts; [ visualizer quality-menu mpris ]; })
       (firefox.override { nativeMessagingHosts = with pkgs; [ ff2mpv ]; })
