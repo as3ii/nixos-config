@@ -53,11 +53,15 @@
     pciutils
     file
     dig
-    git
     htop
     bash-completion
     (neovim.override { vimAlias = true; viAlias = true; })
   ];
+
+  programs.git = {
+    enable = true;
+    lfs.enable = true;
+  };
 
   environment.variables = {
     EDITOR = "nvim";
