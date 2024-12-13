@@ -111,7 +111,7 @@
   # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.as3ii = {
     isNormalUser = true;
-    extraGroups = [ "video" "audio" "input" "tty" "dialout" "networkmanager" "wheel" ];
+    extraGroups = [ "video" "audio" "input" "tty" "dialout" "plugdev" "networkmanager" "wheel" ];
     packages = with pkgs; [
       # CLI tools
       unzip
@@ -194,6 +194,7 @@
       unstable.syncthing
       mangohud
       protonup-qt
+      sdrangel
       unstable.steam
       unstable.steam-run
       veracrypt
@@ -225,6 +226,9 @@
 
   # Thunderbolt
   services.hardware.bolt.enable = true;
+
+  # RTL-SDR
+  hardware.rtl-sdr.enable = true;
 
   services.flatpak.enable = true; # Enable flatpak
   xdg.portal.enable = true; # Enable xdg desktop portals
