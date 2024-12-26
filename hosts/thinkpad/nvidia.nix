@@ -1,4 +1,4 @@
-{ config, lib, input, ... }:
+{ config, lib, ... }:
 
 let
   amdId = "PCI:198:0:0";
@@ -51,23 +51,23 @@ in
   };
 
   # Nvidia sync specialisation
-  specialisation.nvidia-sync.configuration = {
-    hardware.nvidia = {
-      modesetting.enable = true;
-      powerManagement.enable = true;
-      dynamicBoost.enable = true;
-      open = lib.versionAtLeast config.hardware.nvidia.package.version "560";
-      prime = {
-        sync.enable = true;
-        # GPU Bus ID, converted from hex to decimal
-        amdgpuBusId = amdId;
-        nvidiaBusId = nvidiaId;
-      };
-    };
+  #specialisation.nvidia-sync.configuration = {
+  #  hardware.nvidia = {
+  #    modesetting.enable = true;
+  #    powerManagement.enable = true;
+  #    dynamicBoost.enable = true;
+  #    open = lib.versionAtLeast config.hardware.nvidia.package.version "560";
+  #    prime = {
+  #      sync.enable = true;
+  #      # GPU Bus ID, converted from hex to decimal
+  #      amdgpuBusId = amdId;
+  #      nvidiaBusId = nvidiaId;
+  #    };
+  #  };
 
-    # load nvidia driver before amdgpu
-    services.xserver.videoDrivers = lib.mkBefore [ "nvidia" ];
-  };
+  #  # load nvidia driver before amdgpu
+  #  services.xserver.videoDrivers = lib.mkBefore [ "nvidia" ];
+  #};
 }
 
 # vim: sw=2

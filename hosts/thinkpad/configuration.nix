@@ -55,7 +55,7 @@
   };
   boot.loader.efi.canTouchEfiVariables = false;
   #boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_6_11;
+  boot.kernelPackages = pkgs.linuxPackages_6_12;
 
   # Hostname
   networking.hostName = "as3ii-thinkpad-nixos";
