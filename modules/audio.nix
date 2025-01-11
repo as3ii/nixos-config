@@ -2,7 +2,7 @@
 
 {
   # Disable pulseaudio
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
   # Setup pipewire
   security.rtkit.enable = true;
