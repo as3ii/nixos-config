@@ -92,6 +92,7 @@
     libsForQt5.elisa
     libsForQt5.discover
     kdePackages.oxygen
+    kdePackages.kate
   ];
 
   # Configure keymap in X11
