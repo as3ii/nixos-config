@@ -95,7 +95,7 @@
           snapshot_preserve_min = "7d";
           snapshot_create = "always";
           incremental = "yes";
-          target_preserve = "14d 8w 3m";
+          target_preserve = "14d 6w 2m";
           target_preserve_min = "14d";
           stream_compress = "zstd";
           stream_compress_level = "default";
@@ -103,7 +103,7 @@
           send_protocol = "2";
           volume."/btrfs_root" = {
             snapshot_dir = "@snapshot";
-            target = "/mnt/veracrypt2";
+            target = "/mnt/veracrypt2/snapshot";
             subvolume = {
               "@home" = { };
               "@" = { };
