@@ -55,7 +55,12 @@
   };
   boot.loader.efi.canTouchEfiVariables = false;
   #boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_6_12;
+  boot.kernelPackages = pkgs.linuxPackages_6_13;
+  boot.kernelParams = [
+    "nvme_core.default_ps_max_latency_us=1500"
+    #"pcie_aspm=off"
+    #"pcie_port_pm=off"
+  ];
 
   # Hostname
   networking.hostName = "as3ii-thinkpad-nixos";
