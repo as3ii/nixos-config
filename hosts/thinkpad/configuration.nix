@@ -215,10 +215,24 @@
     ];
   };
 
+  #home-manager = {
+  #  extraSpecialArgs = { inherit inputs; };
+  #  users = {
+  #    as3ii = import ./home.nix;
+  #  };
+  #};
+
   # Enable GUI support for Logitech Wireless Devices (solaar)
   hardware.logitech.wireless = {
     enable = true;
     enableGraphical = true;
+  };
+
+  # Enable fingerprint reader support
+  services.fprintd.enable = true;
+  systemd.services.fprintd = {
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.Type = "simple";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
