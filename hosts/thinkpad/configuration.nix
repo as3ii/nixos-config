@@ -13,7 +13,7 @@
       ../../modules/podman.nix
       ../../modules/networking.nix
       ../../modules/libvirt.nix
-      ./nvidia.nix
+      ../../modules/nvidia.nix
     ];
 
   hardware.trackpoint = {
@@ -71,6 +71,9 @@
     enable32Bit = true;
   };
   hardware.amdgpu.opencl.enable = true;
+
+  nvidia.amdId = "PCI:198:0:0";
+  nvidia.nvidiaId = "PCI:0:1:0";
 
   # Enable the X11 windowing system.
   services.xserver = {
