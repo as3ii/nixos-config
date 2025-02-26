@@ -12,6 +12,7 @@
       ../../modules/bluetooth.nix
       ../../modules/podman.nix
       ../../modules/networking.nix
+      ../../modules/libvirt.nix
       ./nvidia.nix
     ];
 
@@ -118,7 +119,7 @@
   # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.as3ii = {
     isNormalUser = true;
-    extraGroups = [ "video" "audio" "input" "tty" "dialout" "plugdev" "networkmanager" "wheel" ];
+    extraGroups = [ "video" "audio" "input" "tty" "dialout" "plugdev" "networkmanager" "wheel" "libvirt" ];
     packages = with pkgs; [
       # CLI tools
       unzip
@@ -189,6 +190,7 @@
       (yt-dlp.override { withAlias = true; })
       (mpv.override { scripts = with mpvScripts; [ visualizer quality-menu mpris ]; })
       (firefox.override { nativeMessagingHosts = with pkgs; [ ff2mpv ]; })
+      ungoogled-chromium
       wofi
       kcc
       calibre
@@ -200,6 +202,7 @@
       unstable.syncthing
       mangohud
       protonup-qt
+      klog
       sdrangel
       unstable.steam
       unstable.steam-run
