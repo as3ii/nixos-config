@@ -92,6 +92,7 @@
   environment.systemPackages = with pkgs; [
     kdePackages.plasma-thunderbolt
     kdePackages.discover
+    kdePackages.kgpg
   ];
   environment.plasma6.excludePackages = with pkgs; [
     libsForQt5.elisa
@@ -196,7 +197,6 @@
       discord
       telegram-desktop
       thunderbird
-      kgpg
       unstable.syncthing
       mangohud
       protonup-qt
