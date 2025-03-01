@@ -67,33 +67,33 @@ in
       "nvidia_modeset"
     ];
 
-    specialisation = {
-      # Nvidia offload specialisation
-      nvidia-offload.configuration = {
-        hardware.nvidia = {
-          modesetting.enable = true;
-          powerManagement.enable = true;
-          powerManagement.finegrained = true;
-          dynamicBoost.enable = true;
-          open = lib.versionAtLeast config.hardware.nvidia.package.version "560";
-          prime = {
-            offload = {
-              enable = true;
-              enableOffloadCmd = true;
-            };
-            # GPU Bus ID, converted from hex to decimal
-            amdgpuBusId = cfg.amdId;
-            intelBusId = cfg.intelId;
-            nvidiaBusId = cfg.nvidiaId;
+    # Nvidia offload specialisation
+    specialisation.nvidia-offload.configuration = {
+      hardware.nvidia = {
+        modesetting.enable = true;
+        powerManagement.enable = true;
+        powerManagement.finegrained = true;
+        dynamicBoost.enable = true;
+        open = lib.versionAtLeast config.hardware.nvidia.package.version "560";
+        prime = {
+          offload = {
+            enable = true;
+            enableOffloadCmd = true;
           };
+          # GPU Bus ID, converted from hex to decimal
+          amdgpuBusId = cfg.amdId;
+          intelBusId = cfg.intelId;
+          nvidiaBusId = cfg.nvidiaId;
         };
-
-        # load nvidia driver after amdgpu
-        services.xserver.videoDrivers = lib.mkAfter [ "nvidia" ];
       };
 
-      # Nvidia sync specialisation
-      nvidia-sync.configuration = lib.mkIf cfg.enablePrimeSync {
+      # load nvidia driver after other video drivers
+      services.xserver.videoDrivers = lib.mkAfter [ "nvidia" ];
+    };
+
+    # Nvidia sync specialisation
+    specialisation.nvidia-sync = lib.mkIf cfg.enablePrimeSync {
+      configuration = {
         hardware.nvidia = {
           modesetting.enable = true;
           powerManagement.enable = true;
@@ -108,7 +108,7 @@ in
           };
         };
 
-        # load nvidia driver before amdgpu
+        # load nvidia driver before other video drivers
         services.xserver.videoDrivers = lib.mkBefore [ "nvidia" ];
       };
     };
