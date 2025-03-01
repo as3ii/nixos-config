@@ -91,12 +91,12 @@
         onCalendar = "Mon,Thu *-*-*"; # 2 times a week
         settings = {
           timestamp_format = "long";
-          snapshot_preserve = "7d 4w 2m";
-          snapshot_preserve_min = "7d";
+          snapshot_preserve = "6d 2w 2m";
+          snapshot_preserve_min = "6d";
           snapshot_create = "always";
           incremental = "yes";
-          target_preserve = "14d 6w 2m";
-          target_preserve_min = "14d";
+          target_preserve = "10d 6w 2m";
+          target_preserve_min = "10d";
           stream_compress = "zstd";
           stream_compress_level = "default";
           stream_compress_long = "default";
