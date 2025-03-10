@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-{ config, lib, pkgs, input, ... }:
+{ config, lib, pkgs, input, home-manager, ... }:
 
 {
   imports =
@@ -14,6 +14,7 @@
       ../../modules/networking.nix
       ../../modules/libvirt.nix
       ../../modules/nvidia.nix
+      home-manager.nixosModules.home-manager
     ];
 
   hardware.trackpoint = {
@@ -123,104 +124,16 @@
   users.users.as3ii = {
     isNormalUser = true;
     extraGroups = [ "video" "audio" "input" "tty" "dialout" "plugdev" "networkmanager" "wheel" "libvirt" ];
-    packages = with pkgs; [
-      # CLI tools
-      unzip
-      p7zip
-      unrar
-      eza
-      bat
-      btop
-      radeontop
-      s-tui
-      powertop
-      libva-utils
-      glxinfo
-      vulkan-tools
-      wayland-utils
-      starship
-      distrobox
-      compsize
-      smartmontools
-      ffmpeg_7-full
-
-      # Nix-specific tools
-      nh # nix helper
-      nix-output-monitor # nix wrapper, nice output
-      nvd # nixos diff generations
-
-      # terminal file manager
-      exiftool
-      mediainfo
-      fzf
-      joshuto
-
-      # Programming
-      python3
-      clang
-      llvmPackages.bintools
-      rustup
-      go
-
-      # rbw
-      pinentry
-      pinentry-qt
-      unstable.rbw
-      rofi-rbw-wayland
-
-      # espanso
-      #xdotool
-      #xsel
-      #espanso
-      wl-clipboard
-      ydotool
-      espanso-wayland
-
-      # Audio
-      calf
-      easyeffects
-      qpwgraph
-      spotify
-
-      # spellcheck (required by libreoffice)
-      hunspell
-      hunspellDicts.it_IT
-      hunspellDicts.en_US
-
-      # GUI
-      alacritty
-      bleachbit
-      (yt-dlp.override { withAlias = true; })
-      (mpv.override { scripts = with mpvScripts; [ visualizer quality-menu mpris ]; })
-      (firefox.override { nativeMessagingHosts = with pkgs; [ ff2mpv ]; })
-      ungoogled-chromium
-      wofi
-      kcc
-      calibre
-      stable.libreoffice-qt6-fresh
-      heroic
-      discord
-      telegram-desktop
-      thunderbird
-      unstable.syncthing
-      mangohud
-      protonup-qt
-      klog
-      sdrangel
-      unstable.steam
-      unstable.steam-run
-      veracrypt
-      zathura
-      zed-editor
-    ];
+    packages = with pkgs; [ ]; # switched to home-manager
   };
 
-  #home-manager = {
-  #  extraSpecialArgs = { inherit inputs; };
-  #  users = {
-  #    as3ii = import ./home.nix;
-  #  };
-  #};
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users = {
+      as3ii = import ../../home-manager/as3ii/home.nix;
+    };
+  };
 
   # Enable GUI support for Logitech Wireless Devices (solaar)
   hardware.logitech.wireless = {
@@ -241,11 +154,8 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+    pinentryPackage = lib.mkForce pkgs.pinentry-qt;
   };
-  programs.gnupg.agent.pinentryPackage = lib.mkForce pkgs.pinentry-qt;
-
-  # enable direnv
-  programs.direnv.enable = true;
 
   # enable binfmt registration to run appimages via appimage-run
   programs.appimage.binfmt = true;

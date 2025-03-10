@@ -8,13 +8,28 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    # home-manager = {
-    #   url = "github:nix-community/home-manager";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    home-manager-stable = {
+      url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+    home-manager-unstable = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    home-manager.follows = "home-manager-unstable";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, nixos-hardware, ... }@inputs:
+  outputs =
+    { self
+    , nixpkgs
+    , nixpkgs-stable
+    , nixpkgs-unstable
+    , nixos-hardware
+    , home-manager
+    , home-manager-stable
+    , home-manager-unstable
+    , ...
+    }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -35,21 +50,25 @@
           })
         ];
       };
+
+      homeManagerWithInputs = { home-manager.extraSpecialArgs = inputs // { inherit system; }; };
     in
     {
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
 
-      nixosConfigurations.as3ii-thinkpad-nixos = nixpkgs.lib.nixosSystem {
-        inherit pkgs system;
+      nixosConfigurations = {
+        as3ii-thinkpad-nixos = nixpkgs.lib.nixosSystem {
+          inherit pkgs system;
 
-        specialArgs = { inherit inputs; };
-        modules = [
-          nixos-hardware.nixosModules.common-pc-ssd
-          nixos-hardware.nixosModules.common-cpu-amd
-          nixos-hardware.nixosModules.common-gpu-amd
-          ./hosts/thinkpad/configuration.nix
-          # inputs.home-manager.nixosModules.default
-        ];
+          specialArgs = inputs;
+          modules = [
+            nixos-hardware.nixosModules.common-pc-ssd
+            nixos-hardware.nixosModules.common-cpu-amd
+            nixos-hardware.nixosModules.common-gpu-amd
+            homeManagerWithInputs
+            ./hosts/thinkpad/configuration.nix
+          ];
+        };
       };
     };
 }

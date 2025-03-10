@@ -1,0 +1,69 @@
+[colors.normal]
+black   = '#000000'
+red     = '#cd0000'
+green   = '#00cd00'
+yellow  = '#cdcd00'
+blue    = '#0000ee'
+magenta = '#cd00cd'
+cyan    = '#00cdcd'
+white   = '#e5e5e5'
+
+[colors.bright]
+black   = '#7f7f7f'
+red     = '#ff0000'
+green   = '#00ff00'
+yellow  = '#ffff00'
+blue    = '#5c5cff'
+magenta = '#ff00ff'
+cyan    = '#00ffff'
+white   = '#ffffff'
+
+[colors.primary]
+background = "0x000000"
+foreground = "0xffffff"
+
+[font]
+size = 10
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font"
+style = "Bold Italic"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "PageUp"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "PageDown"
+mods = "Control"
+
+[selection]
+save_to_clipboard = true
+
+[cursor]
+vi_mode_style = "Block"
+
+[scrolling]
+history = 100000
+
+[window.padding]
+x = 2
+y = 0
+
+[general]
+live_config_reload = false
+

@@ -1,0 +1,31 @@
+matches:
+    # Emoji
+    - trigger: ":ok"
+      replace: "👍"
+
+    # Date
+    - trigger: ":date"
+      replace: "{{mydate}}"
+      propagate_case: true  # side effect: trigger case independent
+      vars:
+        - name: mydate
+          type: date
+          params:
+            format: "%d/%m/%Y"
+
+    # RBW
+    - trigger: ":rbw"
+      replace: "{{password}}"
+      vars:
+        - name: password
+          type: shell
+          params:
+            cmd: "rofi-rbw --action type --target password"
+    - trigger: ";rbw"
+      replace: "{{password}}"
+      vars:
+        - name: password
+          type: shell
+          params:
+            cmd: "rofi-rbw --action copy --target password"
+
