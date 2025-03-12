@@ -9,13 +9,15 @@ in
     #package = pkgs.espanso;
     package = pkgs.espanso-wayland;
     configs = {
-      keyboard_layout = {
-        rules = "evdev";
-        model = "pc105";
-        layout = "${lang}";
+      default = {
+        keyboard_layout = {
+          rules = "evdev";
+          model = "pc105";
+          layout = "${lang}";
+        };
+        toggle_key = "RIGHT_ALT";
+        search_shortcut = "ALT+SHIFT+SPACE";
       };
-      toggle_key = "RIGHT_ALT";
-      search_shortcut = "ALT+SHIFT+SPACE";
     };
     matches = {
       #base = builtins.fromYAML (builtins.readFile ./base.yml);

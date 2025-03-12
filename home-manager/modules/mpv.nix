@@ -13,9 +13,9 @@
       "}" = "add speed 1";
     };
     config = {
-      profile = "gpu-hw";
+      profile = "gpu-hq";
       hwdec = "auto-safe";
-      vo = "pgu";
+      vo = "gpu";
     };
     scripts = with pkgs.mpvScripts; [
       visualizer
