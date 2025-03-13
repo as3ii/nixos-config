@@ -145,11 +145,11 @@
   };
 
   # Enable fingerprint reader support
-  services.fprintd.enable = true;
-  systemd.services.fprintd = {
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig.Type = "simple";
-  };
+  #services.fprintd.enable = true;
+  #systemd.services.fprintd = {
+  #  wantedBy = [ "multi-user.target" ];
+  #  serviceConfig.Type = "simple";
+  #};
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
