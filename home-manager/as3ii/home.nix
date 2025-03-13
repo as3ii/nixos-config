@@ -113,7 +113,7 @@
     signingKey = "6B8188396CF3EB82";
   };
 
-  programs.rbw.settings.email = "as3ii777@gmail.com";
+  rbw.email = "${config.sops.secrets.rbw-email.path}";
 
   home.username = "as3ii";
   home.homeDirectory = "/home/as3ii";

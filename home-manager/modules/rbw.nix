@@ -1,16 +1,31 @@
-{ pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
+let
+  cfg = config.rbw;
+in
 {
-  programs.rbw = {
-    enable = true;
-    package = pkgs.unstable.rbw;
-    settings = {
-      #email = "";
-      pinentry = pkgs.pinentry-qt;
+  options.rbw = {
+    email = lib.mkOption {
+      type = lib.types.str;
+      example = "user@domain.tld";
+      description = ''
+        Email to use to log in to bitwarden.
+      '';
     };
   };
 
-  home.packages = with pkgs; [
-    rofi-rbw-wayland
-  ];
+  config = {
+    programs.rbw = {
+      enable = true;
+      package = pkgs.unstable.rbw;
+      settings = {
+        email = cfg.email;
+        pinentry = pkgs.pinentry-qt;
+      };
+    };
+
+    home.packages = with pkgs; [
+      rofi-rbw-wayland
+    ];
+  };
 }
