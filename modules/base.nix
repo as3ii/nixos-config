@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   nix = {
@@ -52,10 +52,14 @@
     usbutils
     pciutils
     file
+    inetutils
     dig
     htop
     bash-completion
     (neovim.override { vimAlias = true; viAlias = true; })
+    smartmontools
+    openssh
+    openssl
   ];
 
   programs.git = {
@@ -70,7 +74,7 @@
     LESS = "-R";
     LESSHISTFILE = "-";
     HISTCONTROL = "ignorespace:erasedups";
-    HISTSIZE = "10000";
+    HISTSIZE = "100000";
   };
 
   systemd.extraConfig = lib.mkDefault ''
