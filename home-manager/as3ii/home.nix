@@ -88,10 +88,10 @@
     mimeType = [ "text/html" "text/xml" "x-scheme-handler/http" "x-scheme-handler/https" ];
   };
 
-  programs.git = {
+  git = {
     userName = "as3ii";
     userEmail = "as3ii777@gmail.com";
-    signing.key = "6B8188396CF3EB82";
+    signingKey = "6B8188396CF3EB82";
   };
 
   programs.rbw.settings.email = "as3ii777@gmail.com";
