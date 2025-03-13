@@ -1,0 +1,7 @@
+keys:
+  - &thinkpad-as3ii age1g6t3vgq4vku64mdargfdrwg2ky03cmf9vlnjp9y0664rpcuwzs2qwc773k
+creation_rules:
+  - path_regex: thinkpad-as3ii.yaml$
+    key_groups:
+      - age:
+        - *thinkpad-as3ii
