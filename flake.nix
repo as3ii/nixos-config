@@ -17,6 +17,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     home-manager.follows = "home-manager-unstable";
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -28,6 +33,7 @@
     , home-manager
     , home-manager-stable
     , home-manager-unstable
+    , sops-nix
     , ...
     }@inputs:
     let
@@ -66,6 +72,7 @@
             nixos-hardware.nixosModules.common-cpu-amd
             nixos-hardware.nixosModules.common-gpu-amd
             homeManagerWithInputs
+            sops-nix.nixosModules.sops
             ./hosts/thinkpad/configuration.nix
           ];
         };

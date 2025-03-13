@@ -1,7 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, sops-nix, ... }:
 
 {
   imports = [
+    sops-nix.homeManagerModules.sops
     ../modules/base.nix
     ../modules/git.nix
     ../modules/mpv.nix
@@ -26,6 +27,10 @@
     starship
     distrobox
     ffmpeg_7-full
+
+    # sops
+    sops
+    age
 
     # Programming
     rustup
@@ -62,6 +67,20 @@
     unstable.steam-run
     veracrypt
   ];
+
+  sops = {
+    defaultSopsFile = ../../secrets/thinkpad-as3ii.yaml;
+    defaultSopsFormat = "yaml";
+
+    age = {
+      keyFile = "~/.config/sops/age/keys.txt";
+      generateKey = false;
+    };
+
+    secrets = {
+      rbw-email = { };
+    };
+  };
 
   home.file = { };
 

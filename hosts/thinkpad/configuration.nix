@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-{ config, lib, pkgs, input, home-manager, ... }:
+{ config, lib, pkgs, home-manager, sops-nix, ... }:
 
 {
   imports =
@@ -15,6 +15,7 @@
       ../../modules/libvirt.nix
       ../../modules/nvidia.nix
       home-manager.nixosModules.home-manager
+      sops-nix.nixosModules.sops
     ];
 
   hardware.trackpoint = {
@@ -73,6 +74,7 @@
   };
   hardware.amdgpu.opencl.enable = true;
 
+  # Config for nvidia module
   nvidia.amdId = "PCI:198:0:0";
   nvidia.nvidiaId = "PCI:0:1:0";
 
@@ -130,6 +132,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    #extraSpecialArgs = { inherit (config) sops; };
     users = {
       as3ii = import ../../home-manager/as3ii/home.nix;
     };
