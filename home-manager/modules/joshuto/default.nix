@@ -3,7 +3,7 @@
 {
   programs.joshuto = {
     enable = true;
-    keymap = builtins.fromTOML (builtins.readFile ./joshuto.toml);
+    keymap = builtins.fromTOML (builtins.readFile ./keymap.toml);
     mimetype = builtins.fromTOML (builtins.readFile ./mimetype.toml);
     settings = builtins.fromTOML (builtins.readFile ./joshuto.toml);
   };
