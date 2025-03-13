@@ -30,7 +30,6 @@ in
 
     nvidiaId = lib.mkOption {
       type = IDType;
-      default = "";
       example = "PCI:3:0:0";
       description = ''
         Bus ID of the Nvidia GPU. Run lspci and convert the hex numbers to decimal;
@@ -44,7 +43,14 @@ in
     '';
   };
 
-  config = {
+  config = lib.mkIf (cfg.nvidiaId != null || cfg.nvidiaId != "") {
+    assertions = [
+      {
+        assertion = !(cfg.amdId == "" && cfg.intelId == "");
+        message = "One between nvidia.amdId and nvidia.intelId must be set.";
+      }
+    ];
+
     # Blacklist nvidia by default
     boot.extraModprobeConfig = lib.mkIf (! builtins.elem "nvidia" config.services.xserver.videoDrivers) ''
       blacklist nouveau
