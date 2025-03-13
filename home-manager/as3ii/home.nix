@@ -73,7 +73,7 @@
     defaultSopsFormat = "yaml";
 
     age = {
-      keyFile = "~/.config/sops/age/keys.txt";
+      keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
       generateKey = false;
     };
 
