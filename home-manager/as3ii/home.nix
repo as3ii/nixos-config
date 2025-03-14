@@ -113,7 +113,8 @@
     signingKey = "6B8188396CF3EB82";
   };
 
-  rbw.email = "${config.sops.secrets.rbw-email.path}";
+  # this requires impure build, the email is stored in clear text in the nix store
+  rbw.email = builtins.readFile config.sops.secrets.rbw-email.path;
 
   home.username = "as3ii";
   home.homeDirectory = "/home/as3ii";
