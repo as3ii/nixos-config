@@ -7,6 +7,7 @@
     ../modules/git.nix
     ../modules/mpv.nix
     ../modules/rbw.nix
+    ../modules/starship.nix
     ../modules/ungoogled-chromium.nix
     ../modules/zathura.nix
     ../modules/zed-editor.nix
