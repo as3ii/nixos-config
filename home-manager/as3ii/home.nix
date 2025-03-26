@@ -92,6 +92,8 @@
     scrub_start = "sudo btrfs scrub start";
     scrub_status = "sudo btrfs scrub status";
     defrag = "sudo btrfs filesystem defragment -rf -czstd";
+    v = "nvim";
+    clippy = "cargo clean; cargp fmt --all; cargo clippy -- -W clippy::pedantic";
   };
 
   fonts.fontconfig.enable = true;

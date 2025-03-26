@@ -24,11 +24,13 @@
   home.shellAliases = {
     grep = "grep --color=auto";
     ip = "ip -c";
+    cp = "cp --reflink=auto -i";
     mv = "mv -i";
     rm = "rm -i";
     open = "xdg-open";
     cal = "cal -m -3";
     ssh = "TERM=xterm-256color ssh";
+    ssh-nohost = "ssh -o 'UserKnownHostFile=/dev/null'";
 
     cat = "bat";
 
