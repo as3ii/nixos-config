@@ -11,6 +11,7 @@
     ../modules/ungoogled-chromium.nix
     ../modules/zathura.nix
     ../modules/zed-editor.nix
+    ../modules/zsh.nix
     ../modules/alacritty
     ../modules/espanso
     ../modules/joshuto

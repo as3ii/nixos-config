@@ -122,11 +122,14 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
+  programs.zsh.enable = true;
+
   # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.as3ii = {
     isNormalUser = true;
     extraGroups = [ "video" "audio" "input" "tty" "dialout" "plugdev" "networkmanager" "wheel" "libvirt" ];
     packages = with pkgs; [ ]; # switched to home-manager
+    shell = pkgs.zsh;
   };
 
   home-manager = {
