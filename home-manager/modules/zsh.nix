@@ -31,6 +31,8 @@
       setopt interactivecomments    # accept comments on interactive shell
       setopt completeinword         # complete not just at the end
 
+      bindkey -e                    # defaults to emacs mode
+
       mpva() {
           case "$1" in
               *.m3u|*.m3u8)
