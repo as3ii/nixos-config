@@ -32,6 +32,20 @@
       setopt completeinword         # complete not just at the end
 
       bindkey -e                    # defaults to emacs mode
+      bindkey "^[[2~" overwrite-mode        # insert
+      bindkey "^[[3~" delete-char           # delete
+      bindkey "^[[H" beginning-of-line      # home
+      bindkey "^[[F" end-of-line            # end
+      bindkey "^[OH" beginning-of-line      # home, alternative
+      bindkey "^[OF" end-of-line            # end, alternative
+      bindkey "^[[A" up-line-or-search      # up
+      bindkey "^[[B" down-line-or-search    # down
+      bindkey "^[[C" forward-char           # right
+      bindkey "^[[D" backward-char          # left
+      bindkey "^[[1;5A" beginning-of-line   # ctrl+up
+      bindkey "^[[1;5B" end-of-line         # ctrl+down
+      bindkey "^[[1;5C" forward-word        # ctrl+right
+      bindkey "^[[1;5D" backward-word       # ctrl+left
 
       mpva() {
           case "$1" in
@@ -58,7 +72,7 @@
           esac
       }
       meteo() {
-          curl -fsS https://wttr.in/"$1"?F
+          curl -fsS "${"https://wttr.in/\${1}?F"}"
       }
       j() {
           mkdir -p "/tmp/$USER/"
