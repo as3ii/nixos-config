@@ -55,7 +55,7 @@ keymap = [
   { keys = ["l"], commands = ["open"] },
   { keys = ["e"], commands = ["shell nvim %s"] },
   { keys = ["E"], commands = ["spawn alacritty -e nvim %s"] },
-  { keys = ["O"], commands = ["spawn alacritty --working-directory %s"] },
+  { keys = ["O"], commands = ["spawn alacritty --working-directory %d"] },
   { keys = ["g", "g"], commands = ["cursor_move_home"] },
   { keys = ["G"], commands = ["cursor_move_end"] },
   { keys = ["r"], commands = ["open_with"] },

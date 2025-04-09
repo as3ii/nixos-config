@@ -53,6 +53,7 @@
               inherit system;
               config.allowUnfree = true;
             };
+            joshuto = super.callPackage nixpkgs/joshuto.nix { };
           })
         ];
       };
