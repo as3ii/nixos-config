@@ -129,11 +129,12 @@ keymap = [
   { keys = ["m", "U"], commands = ["linemode user | group"] },
   { keys = ["m", "p"], commands = ["linemode perm"] },
 
-  { keys = ["g", "r"], commands = ["cd /"] },
+  { keys = ["g", "R"], commands = ["cd /"] },
   { keys = ["g", "c"], commands = ["cd ~/.config"] },
   { keys = ["g", "d"], commands = ["cd ~/Downloads"] },
   { keys = ["g", "e"], commands = ["cd /etc"] },
   { keys = ["g", "h"], commands = ["cd ~/"] },
+  { keys = ["g", "r"], commands = ["cd ~/repos"] },
   { keys = ["g", "u"], commands = ["cd ~/syncthing/UniBO"] },
   { keys = ["?"], commands = ["help"] },
 ]
