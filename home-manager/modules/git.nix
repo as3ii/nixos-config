@@ -58,9 +58,10 @@ in
 
     home.shellAliases = {
       gita = "git add";
-      gotad = "git add -p";
+      gitad = "git add -p";
       gitc = "git commit -S";
       gitd = "git diff";
+      gitl = "git log";
       gitp = "git push";
       gits = "git status";
     };
