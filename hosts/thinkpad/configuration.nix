@@ -61,9 +61,12 @@
   #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs.linuxPackages_6_13;
   boot.kernelParams = [
+    # Fix nvme power issues
     "nvme_core.default_ps_max_latency_us=1500"
     #"pcie_aspm=off"
     #"pcie_port_pm=off"
+    # Fix amdgpu PSR causing glitches
+    "amdgpu.dcdebugmask=0x10"
   ];
 
   # Hostname
