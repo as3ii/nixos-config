@@ -47,6 +47,11 @@
       bindkey "^[[1;5C" forward-word        # ctrl+right
       bindkey "^[[1;5D" backward-word       # ctrl+left
 
+      zstyle ':completion:*' menu select
+      zstyle ':completion:*' matcher-list "" 'm:{a-zA-Z}={A-Za-z}'
+      zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'
+      zstyle ':completion:*:default' list-colors ${"\${(s.:.)LS_COLORS}"}
+
       mpva() {
           case "$1" in
               *.m3u|*.m3u8)

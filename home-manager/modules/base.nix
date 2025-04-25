@@ -35,9 +35,9 @@
     cat = "bat";
 
     # eza aliases
-    ls = "eza --classify";
-    la = "eza --classify --all";
-    ll = "eza --classify --group --long --header --git";
+    ls = "eza --classify=auto";
+    la = "eza --classify=auto --all";
+    ll = "eza --classify=auto --group --long --header --git";
     tree = "eza --tree --level=4";
   };
 
