@@ -30,6 +30,8 @@
     distrobox
     ffmpeg_7-full
 
+    cifs-utils
+
     # sops
     sops
     age
