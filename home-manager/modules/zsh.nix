@@ -20,7 +20,14 @@
     };
     historySubstringSearch.enable = true;
     syntaxHighlighting.enable = true;
-    initExtra = ''
+    completionInit = ''
+      autoload -U compinit && compinit
+      zstyle ':completion:*' menu select
+      zstyle ':completion:*' matcher-list "" 'm:{a-zA-Z}={A-Za-z}'
+      zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'
+      zstyle ':completion:*:default' list-colors ${"\${(s.:.)LS_COLORS}"}
+    '';
+    initContent = ''
       setopt longlistjobs           # display PID when suspending processes
       setopt notify                 # report status of background jobs
       setopt auto_pushd             # make cd push the old directory onto the stack
@@ -47,20 +54,15 @@
       bindkey "^[[1;5C" forward-word        # ctrl+right
       bindkey "^[[1;5D" backward-word       # ctrl+left
 
-      zstyle ':completion:*' menu select
-      zstyle ':completion:*' matcher-list "" 'm:{a-zA-Z}={A-Za-z}'
-      zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'
-      zstyle ':completion:*:default' list-colors ${"\${(s.:.)LS_COLORS}"}
-
       mpva() {
           case "$1" in
               *.m3u|*.m3u8)
                   playlist="$1"
                   shift
-                  mpv --no-video --no-cookies --playlist="$playlist" $@
+                  env mpv --no-video --no-cookies --playlist="$playlist" $@
                   ;;
               *)
-                  mpv --no-video --no-cookies $@
+                  env mpv --no-video --no-cookies $@
                   ;;
           esac
       }
@@ -69,10 +71,10 @@
               *.m3u|*.m3u8)
                   playlist="$1"
                   shift
-                  mpv --playlist="$playlist" $@
+                  env mpv --playlist="$playlist" $@
                   ;;
               *)
-                  mpv $@
+                  env mpv $@
                   ;;
           esac
       }
