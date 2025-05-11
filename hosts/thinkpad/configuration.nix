@@ -59,7 +59,7 @@
   };
   boot.loader.efi.canTouchEfiVariables = false;
   #boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_6_13;
+  boot.kernelPackages = pkgs.linuxPackages_6_14;
   boot.kernelParams = [
     # Fix nvme power issues
     "nvme_core.default_ps_max_latency_us=1500"
