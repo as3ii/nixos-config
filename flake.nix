@@ -22,6 +22,8 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
   outputs =
@@ -34,48 +36,65 @@
     , home-manager-stable
     , home-manager-unstable
     , sops-nix
+    , flake-parts
     , ...
     }@inputs:
     let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
+    in
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [ ];
 
-        config.allowUnfree = true;
+      systems = [ "x86_64-linux" "aarch64-linux" ];
 
-        overlays = [
-          (self: super: {
-            unstable = import nixpkgs-unstable {
-              inherit system;
-              config.allowUnfree = true;
-            };
-            stable = import nixpkgs-stable {
-              inherit system;
-              config.allowUnfree = true;
-            };
-            joshuto = super.callPackage nixpkgs/joshuto.nix { };
-          })
-        ];
+      perSystem = { pkgs, system, ... }: {
+        formatter = pkgs.nixpkgs-fmt;
+
+        packages = {
+          rpi3-image = (self.nixosConfigurations.rpi3.extendModules {
+            modules = [
+              {
+                nixpkgs.config.allowUnsupportedSystem = true;
+                nixpkgs.hostPlatform.system = "aarch64-linux";
+                nixpkgs.buildPlatform.system = system;
+              }
+            ];
+          }).config.system.build.sdImage;
+        };
       };
 
-      homeManagerWithInputs = { home-manager.extraSpecialArgs = inputs // { inherit system; }; };
-    in
-    {
-      formatter.${system} = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+      flake = {
+        nixosConfigurations = {
+          as3ii-thinkpad-nixos = nixpkgs.lib.nixosSystem rec {
+            system = "x86_64-linux";
+            specialArgs = inputs;
 
-      nixosConfigurations = {
-        as3ii-thinkpad-nixos = nixpkgs.lib.nixosSystem {
-          inherit pkgs system;
+            modules = [
+              nixos-hardware.nixosModules.common-pc-ssd
+              nixos-hardware.nixosModules.common-cpu-amd
+              nixos-hardware.nixosModules.common-gpu-amd
+              home-manager.nixosModules.home-manager
+              sops-nix.nixosModules.sops
+              {
+                nixpkgs.config.allowUnfree = true;
+                home-manager.extraSpecialArgs = inputs // { inherit system; };
+              }
+              (import ./nixpkgs)
+              ./hosts/thinkpad/configuration.nix
+            ];
+          };
 
-          specialArgs = inputs;
-          modules = [
-            nixos-hardware.nixosModules.common-pc-ssd
-            nixos-hardware.nixosModules.common-cpu-amd
-            nixos-hardware.nixosModules.common-gpu-amd
-            homeManagerWithInputs
-            sops-nix.nixosModules.sops
-            ./hosts/thinkpad/configuration.nix
-          ];
+          rpi3 = nixpkgs.lib.nixosSystem rec {
+            system = "aarch64-linux";
+            specialArgs = inputs;
+
+            modules = [
+              nixos-hardware.nixosModules.raspberry-pi-3
+              "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+              { nixpkgs.config.allowUnfree = true; }
+              (import ./nixpkgs)
+              ./hosts/rpi3/configuration.nix
+            ];
+          };
         };
       };
     };
