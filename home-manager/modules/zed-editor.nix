@@ -92,6 +92,12 @@
       wrap_guides = [ 80 ];
       ui_font_size = 16;
       buffer_font_size = 16;
+      # Available for Linux* from v0.187.4-pre
+      # *: still incomplete, see https://github.com/zed-industries/zed/issues/12176
+      buffer_font_features = {
+        liga = false;
+        calt = false;
+      };
       theme = {
         mode = "system";
         light = "Ayu Light";
