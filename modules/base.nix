@@ -13,14 +13,6 @@
     };
   };
 
-  system = {
-    #autoUpgrade = {
-    #  enable = true;
-    #  allowReboot = false;
-    #  dates = "Sat";
-    #};
-  };
-
   # Mount a tmpfs on /tmp during boot
   boot.tmp.useTmpfs = true;
 
