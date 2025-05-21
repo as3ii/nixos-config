@@ -15,6 +15,7 @@
       ../../modules/libvirt.nix
       ../../modules/nvidia.nix
       ../../modules/waydroid.nix
+      ../../modules/kernel-hardening.nix
       home-manager.nixosModules.home-manager
       sops-nix.nixosModules.sops
     ];
