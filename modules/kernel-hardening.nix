@@ -1,5 +1,5 @@
 # Based on https://kspp.github.io/Recommended_Settings#kernel-command-line-options
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
   # Harden sysctl
@@ -34,7 +34,7 @@
     "page_alloc.shuffle=1"
     # Always enable mitigations for Meltdown
     #"pti" = 1
-  ] ++ lib.optional (builtins.currentSystem == "x86_64-linux") [
+  ] ++ lib.optionals (pkgs.system == "x86_64-linux") [
     "vsyscall=none"
   ];
 }
