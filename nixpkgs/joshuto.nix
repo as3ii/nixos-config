@@ -9,14 +9,14 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "joshuto";
-  version = "0.9.8-unstable-2025-04-14";
+  version = "0.9.9-unstable-2025-05-26";
 
   src = fetchFromGitHub {
     owner = "as3ii";
     repo = "joshuto";
-    rev = "87ac379dc8d900a4bd845db6b4d78a62118afe70";
+    rev = "e55572b154a6f2dbe995370ac82dc67b3fb4bf98";
     #hash = lib.fakeHash;
-    hash = "sha256-V7siNxNCiiFTSptKWAdGARNTP7YKLg0otBE7K451yPg=";
+    hash = "sha256-BSSJo75aPzPlzIY56izyDp0MnNKeMkiCEMKoGsa2NAQ=";
   };
 
   useFetchCargoVendor = true;
