@@ -50,6 +50,7 @@
         formatter = pkgs.nixpkgs-fmt;
 
         packages = {
+          # https://hydra.nixos.org/job/nixos/release-24.11/nixos.sd_image_new_kernel_no_zfs.aarch64-linux/latest/download-by-type/file/sd-image
           rpi3-image = (self.nixosConfigurations.rpi3.extendModules {
             modules = [
               {
