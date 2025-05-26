@@ -26,7 +26,7 @@
   };
 
   # disable phone modem
-  systemd.services.modem-manager.enable = false;
+  systemd.services.ModemManager.enable = false;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
