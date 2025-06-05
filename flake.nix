@@ -2,7 +2,7 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.follows = "nixpkgs-unstable";
 
@@ -39,8 +39,6 @@
     , flake-parts
     , ...
     }@inputs:
-    let
-    in
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [ ];
 
@@ -50,7 +48,7 @@
         formatter = pkgs.nixpkgs-fmt;
 
         packages = {
-          # https://hydra.nixos.org/job/nixos/release-24.11/nixos.sd_image_new_kernel_no_zfs.aarch64-linux/latest/download-by-type/file/sd-image
+          # https://hydra.nixos.org/job/nixos/release-25.05/nixos.sd_image_new_kernel_no_zfs.aarch64-linux/latest/download-by-type/file/sd-image
           rpi3-image = (self.nixosConfigurations.rpi3.extendModules {
             modules = [
               {
