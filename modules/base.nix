@@ -44,6 +44,7 @@
     usbutils
     pciutils
     file
+    lsof
     inetutils
     dig
     htop
