@@ -34,7 +34,7 @@ reader_default = [
   { command = "okular", fork = true, silent = true },
 ]
 
-libreoffice_default = [{ command = "libreoffice", fork = true, silent = true }]
+libreoffice_default = [{ command = "/home/as3ii/.config/joshuto/libreoffice.sh", fork = true, silent = true }]
 
 [extension]
 

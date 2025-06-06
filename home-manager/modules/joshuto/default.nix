@@ -13,6 +13,11 @@
     executable = true;
   };
 
+  xdg.configFile."joshuto/libreoffice.sh" = {
+    source = ./libreoffice.sh;
+    executable = true;
+  };
+
   home.packages = with pkgs; [
     exiftool
     mediainfo
