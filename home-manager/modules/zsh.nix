@@ -19,7 +19,12 @@
       size = 100000;
     };
     historySubstringSearch.enable = true;
-    syntaxHighlighting.enable = true;
+    syntaxHighlighting = {
+      enable = true;
+      styles = {
+        comment = "fg=#b2f5bf"; # light green
+      };
+    };
     completionInit = ''
       autoload -U compinit && compinit
       zstyle ':completion:*' menu select
