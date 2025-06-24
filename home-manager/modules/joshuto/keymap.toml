@@ -176,4 +176,3 @@ keymap = [
   { keys = ["w"], commands = ["show_tasks"] },
   { keys = ["escape"], commands = ["show_tasks"] },
 ]
-

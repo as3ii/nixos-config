@@ -28,4 +28,3 @@ matches:
           type: shell
           params:
             cmd: "rofi-rbw --action copy --target password"
-

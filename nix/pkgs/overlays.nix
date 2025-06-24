@@ -1,8 +1,8 @@
-{ config, pkgs, lib, nixpkgs-unstable, nixpkgs-stable, ... }:
+{ nixpkgs-unstable, nixpkgs-stable, ... }:
 
 {
   nixpkgs.overlays = [
-    (self: super: {
+    (_: _: {
       unstable = import nixpkgs-unstable {
         config.allowUnfree = true;
       };
@@ -10,7 +10,7 @@
         config.allowUnfree = true;
       };
     })
-    (self: super: {
+    (_: super: {
       joshuto = super.callPackage ./joshuto.nix { };
     })
   ];

@@ -14,4 +14,3 @@
 
   hardware.nvidia-container-toolkit.enable = lib.mkIf (builtins.elem "nvidia" config.services.xserver.videoDrivers) true;
 }
-

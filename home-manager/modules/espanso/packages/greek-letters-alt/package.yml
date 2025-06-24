@@ -88,11 +88,11 @@ matches:
   - trigger: ":kappa"
     replace: "κ"
 
-  # GREEK CAPITAL LETTER LAMDA
+  # GREEK CAPITAL LETTER LAMBDA
   - trigger: ":Lambda"
     replace: "Λ"
 
-  # GREEK SMALL LETTER LAMDA
+  # GREEK SMALL LETTER LAMBDA
   - trigger: ":lambda"
     replace: "λ"
 

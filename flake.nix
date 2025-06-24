@@ -24,28 +24,37 @@
     };
 
     flake-parts.url = "github:hercules-ci/flake-parts";
+
+    git-hooks-nix = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     { self
     , nixpkgs
-    , nixpkgs-stable
-    , nixpkgs-unstable
+      # , nixpkgs-stable
+      # , nixpkgs-unstable
     , nixos-hardware
     , home-manager
-    , home-manager-stable
-    , home-manager-unstable
+      # , home-manager-stable
+      # , home-manager-unstable
     , sops-nix
     , flake-parts
     , ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [ ];
+      imports = [ inputs.git-hooks-nix.flakeModule ];
 
       systems = [ "x86_64-linux" "aarch64-linux" ];
 
       perSystem = { pkgs, system, ... }: {
         formatter = pkgs.nixpkgs-fmt;
+        imports = [
+          ./nix/git-hooks.nix
+          ./nix/devshells.nix
+        ];
 
         packages = {
           # https://hydra.nixos.org/job/nixos/release-25.05/nixos.sd_image_new_kernel_no_zfs.aarch64-linux/latest/download-by-type/file/sd-image
@@ -98,5 +107,3 @@
       };
     };
 }
-
-# vim: sw=2

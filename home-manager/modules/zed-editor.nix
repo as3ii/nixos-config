@@ -34,7 +34,7 @@
       lsp = {
         nix.binary.path_lookup = true;
         ruff.initialization_options.settings = {
-          lineLenght = 100;
+          lineLength = 100;
           lint = {
             # default select = [ E4 E7 E9 F ]
             extendSelect = [ "E" "W" "I" "N" "D" "UP" "ASYNC" "S" "BLE" "B" "A" "COM" "C4" "DTZ" "EM" "FA" "ISC" "ICN" "LOG" "G" "PIE" "PYI" "Q" "RSE" "RET" "SLF" "SIM" "TID" "TCH" "INT" "ARG" "TD" "FIX" "ERA" "PL" "TRY" "PERF" "FURB" "DOC" "RUF" ];

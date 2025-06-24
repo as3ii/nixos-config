@@ -116,7 +116,7 @@
   git = {
     userName = "as3ii";
     userEmail = "as3ii777@gmail.com";
-    signingKey = "6B8188396CF3EB82";
+    signingKey = "6B8188396CF3EB82"; # pragma: allowlist secret
   };
 
   # this requires impure build, the email is stored in clear text in the nix store

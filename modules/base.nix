@@ -98,4 +98,3 @@
   # use dbus-broker instead of the old dbus implementation
   services.dbus.implementation = "broker";
 }
-

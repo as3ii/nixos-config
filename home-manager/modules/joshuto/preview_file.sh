@@ -47,7 +47,7 @@ alias exiftool='exiftool -api largefilesupport=1'
 
 FILE_PATH=""
 PREVIEW_WIDTH=10
-PREVIEW_HEIGHT=10
+#PREVIEW_HEIGHT=10 # Currently unused
 
 while [ "$#" -gt 0 ]; do
     case "$1" in
@@ -61,7 +61,7 @@ while [ "$#" -gt 0 ]; do
             ;;
         "--preview-height")
             shift
-            PREVIEW_HEIGHT="$1"
+            #PREVIEW_HEIGHT="$1"
             ;;
     esac
     shift
@@ -216,4 +216,3 @@ MIMETYPE="$( file --dereference --brief --mime-type -- "${FILE_PATH}" )"
 handle_mime "${MIMETYPE}"
 
 exit 1
-

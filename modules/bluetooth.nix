@@ -9,5 +9,3 @@
 
   #services.blueman.enable = true;
 }
-
-# vim: sw=2

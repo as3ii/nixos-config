@@ -249,4 +249,3 @@ inherit = "text_default"
 # text/*
 [mimetype.video]
 inherit = "video_default"
-

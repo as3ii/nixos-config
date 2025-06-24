@@ -21,5 +21,3 @@
 
   programs.virt-manager.enable = true;
 }
-
-# vim: sw=2
