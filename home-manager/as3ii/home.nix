@@ -37,6 +37,7 @@
     age
 
     # Programming
+    python3
     rustup
 
     # Audio
