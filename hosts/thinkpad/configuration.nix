@@ -169,7 +169,10 @@
   };
 
   # enable binfmt registration to run appimages via appimage-run
-  programs.appimage.binfmt = true;
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
 
   # List services that you want to enable:
   #services.espanso.enable = true; # shell/script vars types are broken
