@@ -29,6 +29,7 @@
     starship
     distrobox
     ffmpeg_7-full
+    obs-studio-plugins.obs-vkcapture # required even if OBS is in flatpak
 
     cifs-utils
 
@@ -43,6 +44,7 @@
     # Audio
     calf
     easyeffects
+    lsp-plugins
     qpwgraph
     spotify
 
