@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   programs.zed-editor = {
@@ -31,6 +31,10 @@
       }
     ];
     userSettings = {
+      node = {
+        path = lib.getExe pkgs.nodejs;
+        npm_path = lib.getExe' pkgs.nodejs "npm";
+      };
       lsp = {
         nix.binary.path_lookup = true;
         ruff.initialization_options.settings = {
@@ -67,7 +71,7 @@
           ];
         };
       };
-      assistant = {
+      agent = {
         version = 2;
         default_model = {
           provider = "ollama";
@@ -83,6 +87,8 @@
       scrollbar.show = "auto";
       telemetry.metrics = false;
       load_direnv = "shell_hook";
+      auto_signature_help = true;
+      diagnostic.inline.enabled = true;
       auto_update = false;
       format_on_save = "off";
       hour_format = "hour24";
