@@ -47,6 +47,11 @@ in
         init.defaultBranch = "master";
       };
       lfs.enable = true;
+      aliases = {
+        stash-untracked = ''
+          !f() { git stash; git stash -u; git stash pop stash@{1}; }; f
+        '';
+      };
 
       userName = cfg.userName;
       userEmail = cfg.userEmail;
