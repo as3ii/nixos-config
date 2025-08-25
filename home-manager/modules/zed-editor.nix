@@ -36,7 +36,7 @@
         npm_path = lib.getExe' pkgs.nodejs "npm";
       };
       lsp = {
-        nix.binary.path_lookup = true;
+        nil.binary.path_lookup = true;
         ruff.initialization_options.settings = {
           lineLength = 100;
           lint = {
@@ -47,22 +47,18 @@
           codeAction.fixViolation.enable = false;
         };
       };
-      language = {
+      languages = {
         Python = {
-          language_server = [ "ruff" ];
-          formatter = {
-            language_server.name = "ruff";
-            code_action = {
-              "source.organizeImports.ruff" = true;
-              "source.fixAll.ruff" = true;
-            };
-          };
+          language_servers = [ "ruff" ];
+        };
+        Nix = {
+          language_servers = [ "nil" "!nixd" ];
         };
       };
-      language_model = {
+      language_models = {
         ollama = {
           api_url = "http://localhost:11434";
-          available_model = [
+          available_models = [
             {
               name = "";
               display_name = "";
@@ -72,7 +68,6 @@
         };
       };
       agent = {
-        version = 2;
         default_model = {
           provider = "ollama";
           model = "";
@@ -83,12 +78,12 @@
         use_system_clipboard = "on_yank";
         use_smartcase_find = true;
       };
-      relative_line_number = true;
+      relative_line_numbers = true;
       scrollbar.show = "auto";
       telemetry.metrics = false;
       load_direnv = "shell_hook";
       auto_signature_help = true;
-      diagnostic.inline.enabled = true;
+      diagnostics.inline.enabled = true;
       auto_update = false;
       format_on_save = "off";
       hour_format = "hour24";
