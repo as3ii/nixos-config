@@ -36,7 +36,7 @@
         npm_path = lib.getExe' pkgs.nodejs "npm";
       };
       lsp = {
-        nix.binary.path_lookup = true;
+        nil.binary.path_lookup = true;
         ruff.initialization_options.settings = {
           lineLength = 100;
           lint = {
@@ -47,9 +47,9 @@
           codeAction.fixViolation.enable = false;
         };
       };
-      language = {
+      languages = {
         Python = {
-          language_server = [ "ruff" ];
+          language_servers = [ "ruff" ];
           formatter = {
             language_server.name = "ruff";
             code_action = {
@@ -57,6 +57,9 @@
               "source.fixAll.ruff" = true;
             };
           };
+        };
+        Nix = {
+          language_servers = [ "nil" "!nixd" ];
         };
       };
       language_model = {
@@ -72,7 +75,6 @@
         };
       };
       agent = {
-        version = 2;
         default_model = {
           provider = "ollama";
           model = "";
