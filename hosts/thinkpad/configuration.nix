@@ -60,7 +60,7 @@
   };
   boot.loader.efi.canTouchEfiVariables = false;
   #boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_6_15;
+  boot.kernelPackages = pkgs.linuxPackages_6_16;
   boot.kernelParams = [
     # Fix nvme power issues
     "nvme_core.default_ps_max_latency_us=1500"
@@ -107,8 +107,7 @@
     kdePackages.kgpg
   ];
   environment.plasma6.excludePackages = with pkgs; [
-    libsForQt5.elisa
-    libsForQt5.discover
+    kdePackages.elisa
     kdePackages.oxygen
     kdePackages.kate
   ];

@@ -62,6 +62,7 @@
     calibre
     libreoffice-qt6-fresh
     heroic
+    prismlauncher
     discord
     telegram-desktop
     thunderbird
