@@ -3,7 +3,7 @@
 {
   programs.zed-editor = {
     enable = true;
-    extensions = [ "nix" "ruff" "toml" ];
+    extensions = [ "nix" "ruff" "toml" "java" ];
     extraPackages = with pkgs; [
       nil # nix
       ruff # python
@@ -36,7 +36,21 @@
         npm_path = lib.getExe' pkgs.nodejs "npm";
       };
       lsp = {
-        nil.binary.path_lookup = true;
+        jdtls = {
+          settings.java = {
+            home = "${pkgs.jdk}";
+            jdt.ls.lombokSupport.enabled = true;
+            format = {
+              enabled = true;
+              #settings = {
+              #  profile = "GoogleStyle";
+              #  url = "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml";
+              #};
+            };
+          };
+          binary.path_lookup = true;
+        };
+        nil.binary.path = lib.getExe pkgs.nil;
         ruff.initialization_options.settings = {
           lineLength = 100;
           lint = {
