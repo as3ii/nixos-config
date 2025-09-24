@@ -27,10 +27,11 @@
         trim-trailing-whitespace.enable = true;
         typos = {
           enable = true;
-          settings.configuration = ''
-            [default.extend-words]
-            odf = "odf"
-          '';
+          settings.config = {
+            default.extend-words = {
+              odf = "odf";
+            };
+          };
           excludes = [
             "secrets/"
           ];
