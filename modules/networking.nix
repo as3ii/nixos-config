@@ -20,6 +20,19 @@
           '';
           type = "basic";
         }
+        {
+          # Set WiFi regulatory domain
+          source = pkgs.writeText "reg-it" ''
+            case "$1" in
+                wlp*)
+                    if [ "$2" = "pre-up" ]; then
+                        ${pkgs.iw}/bin/iw reg set IT
+                    fi
+                    ;;
+            esac
+          '';
+          type = "pre-up";
+        }
       ];
     };
     enableIPv6 = true;
