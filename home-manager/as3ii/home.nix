@@ -26,8 +26,8 @@
     glxinfo
     vulkan-tools
     wayland-utils
-    starship
     distrobox
+    (yt-dlp.override { withAlias = true; })
     ffmpeg_7-full
     obs-studio-plugins.obs-vkcapture # required even if OBS is in flatpak
 
@@ -53,9 +53,19 @@
     hunspellDicts.it_IT
     hunspellDicts.en_US
 
+    # Ham Radio
+    fldigi
+    #flrig
+    #freedata # NOT PACKAGED IN NIXPKGS AT THE MOMENT
+    #freedv
+    js8call
+    klog
+    qsstv
+    sdrangel
+    wsjtx
+
     # GUI
     bleachbit
-    (yt-dlp.override { withAlias = true; })
     (firefox.override { nativeMessagingHosts = with pkgs; [ ff2mpv ]; })
     wofi
     kcc
@@ -69,11 +79,10 @@
     syncthing
     mangohud
     protonup-qt
-    klog
-    sdrangel
     unstable.steam
     unstable.steam-run
     veracrypt
+    xournalpp
   ];
 
   sops = {
