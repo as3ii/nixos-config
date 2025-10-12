@@ -18,6 +18,11 @@
     executable = true;
   };
 
+  xdg.configFile."joshuto/zathura.sh" = {
+    source = ./zathura.sh;
+    executable = true;
+  };
+
   home.packages = with pkgs; [
     exiftool
     mediainfo

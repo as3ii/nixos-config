@@ -30,7 +30,7 @@ text_default = [
 ]
 
 reader_default = [
-  { command = "zathura", fork = true, silent = true },
+  { command = "/home/as3ii/.config/joshuto/zathura.sh", fork = true, silent = true },
   { command = "okular", fork = true, silent = true },
 ]
 
