@@ -2,16 +2,20 @@
 
 {
   nixpkgs.overlays = [
-    (_: _: {
+    # allows the use of pkgs.stable and pkgs.unstable
+    (_: prev: {
       unstable = import nixpkgs-unstable {
+        system = prev.system;
         config.allowUnfree = true;
       };
       stable = import nixpkgs-stable {
+        system = prev.system;
         config.allowUnfree = true;
       };
     })
-    (_: super: {
-      joshuto = super.callPackage ./joshuto.nix { };
+    # other overlays
+    (_: prev: {
+      joshuto = prev.callPackage ./joshuto.nix { };
     })
   ];
   # Waiting for PR: https://github.com/NixOS/nixpkgs/pull/439793
