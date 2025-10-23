@@ -132,8 +132,9 @@
     signingKey = "6B8188396CF3EB82"; # pragma: allowlist secret
   };
 
-  # this requires impure build, the email is stored in clear text in the nix store
-  rbw.email = builtins.readFile config.sops.secrets.rbw-email.path;
+  # Now pure! Rename the home-manager config symlink, copy as a file,
+  # patch the config and then actually run rbw. At every execution of rbw/rbw-agent
+  rbw.email-file = config.sops.secrets.rbw-email.path;
 
   home.username = "as3ii";
   home.homeDirectory = "/home/as3ii";
