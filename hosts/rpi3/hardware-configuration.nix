@@ -32,6 +32,10 @@
     priority = 10;
     algorithm = "zstd";
   };
+  # Drastically reduce latency and increase IOPS (but reduces raw speed) when using zram+zstd
+  # This may reduce the performance of on-disk swap
+  # See: https://notes.xeome.dev/notes/Zram#conclusion
+  boot.kernel.sysctl."vm.page-cluster" = 0; # Default value: 3
 
   # Some default options
   networking.useDHCP = lib.mkDefault true;
