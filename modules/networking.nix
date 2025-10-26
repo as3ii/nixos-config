@@ -5,6 +5,10 @@
   networking = {
     networkmanager = {
       enable = true;
+      plugins = with pkgs; [
+        # Wireguard is builtin
+        networkmanager-openvpn
+      ];
       dispatcherScripts = [
         {
           # disable IPv6 when a VPN is enabled
