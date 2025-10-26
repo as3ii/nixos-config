@@ -43,20 +43,23 @@ in
       attributes = [
         "* text=auto eol=lf"
       ];
-      extraConfig = {
-        init.defaultBranch = "master";
-      };
       lfs.enable = true;
-      aliases = {
-        stash-untracked = ''
-          !f() { git stash; git stash -u; git stash pop stash@{1}; }; f
-        '';
+      settings = {
+        init.defaultBranch = "master";
+        alias = {
+          stash-untracked = ''
+            !f() { git stash; git stash -u; git stash pop stash@{1}; }; f
+          '';
+        };
+        user = {
+          name = cfg.userName;
+          email = cfg.userEmail;
+        };
       };
 
-      userName = cfg.userName;
-      userEmail = cfg.userEmail;
       signing = {
         key = cfg.signingKey;
+        format = "openpgp";
         signByDefault = cfg.signingKey != null;
       };
     };
