@@ -3,21 +3,26 @@
 let
   cfg = config.rbw;
   confpath = ''''${XDG_CONFIG_HOME-"$HOME/.config"}/rbw/config.json'';
-  rbw-wrapper = cfg.package.overrideAttrs (oldAttrs: {
-    nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ] ++ [ pkgs.makeWrapper ];
-    # Rename the home-manager config symlink, copy as a file, patch the config
-    # and then actually run rbw. At every execution of rbw/rbw-agent
-    postInstall = oldAttrs.postInstall + ''
-      makeWrapper ${cfg.package}/bin/rbw $out/bin/rbw \
+  rbw-wrapper = pkgs.symlinkJoin {
+    name = "rbw";
+    paths = [ cfg.package ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    buildInputs = [ pkgs.replace-secret ];
+    postBuild = ''
+      wrapProgram $out/bin/rbw \
         --run '[ -h "${confpath}" ] && mv -f "${confpath}" "${confpath}.lnk"' \
         --run '[ -h "${confpath}.lnk" ] && install -m 600 "${confpath}.lnk" "${confpath}"' \
         --run '${pkgs.replace-secret}/bin/replace-secret "@email_placeholder@" "${cfg.email-file}" "${confpath}"'
-      makeWrapper ${cfg.package}/bin/rbw-agent $out/bin/rbw-agent \
+      wrapProgram $out/bin/rbw-agent \
         --run '[ -h "${confpath}" ] && mv -f "${confpath}" "${confpath}.lnk"' \
         --run '[ -h "${confpath}.lnk" ] && install -m 600 "${confpath}.lnk" "${confpath}"' \
         --run '${pkgs.replace-secret}/bin/replace-secret "@email_placeholder@" "${cfg.email-file}" "${confpath}"'
     '';
-  });
+  };
+  rofi-rbw-wrapper-wayland = pkgs.rofi-rbw.override {
+    rbw = rbw-wrapper;
+    waylandSupport = true;
+  };
 in
 {
   options.rbw = with lib.types; {
@@ -67,8 +72,8 @@ in
 
     xdg.configFile."rbw/config.json".force = true;
 
-    home.packages = with pkgs; [
-      rofi-rbw-wayland
+    home.packages = [
+      rofi-rbw-wrapper-wayland
     ];
   };
 }
