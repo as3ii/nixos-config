@@ -3,6 +3,7 @@
 {
   # Enable networking
   networking = {
+    firewall.enable = true;
     networkmanager = {
       enable = true;
       plugins = with pkgs; [
@@ -17,7 +18,7 @@
                 vpn-up)
                     echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
                     ;;
-                vpn-dpwn)
+                vpn-down)
                     echo 0 > /proc/sys/net/ipv6/conf/all/disable_ipv6
                     ;;
             esac
@@ -43,6 +44,7 @@
   };
 
   # disable phone modem
+  networking.modemmanager.enable = false;
   systemd.services.ModemManager.enable = false;
 
   # Configure network proxy if necessary
