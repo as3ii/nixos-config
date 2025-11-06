@@ -29,7 +29,7 @@ in
     };
     PasswordAuthentication = lib.mkOption {
       type = lib.types.nullOr lib.types.bool;
-      default = true;
+      default = false;
       description = ''
         Specifies whether password authentication is allowed.
       '';
