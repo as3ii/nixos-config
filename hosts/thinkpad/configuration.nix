@@ -197,14 +197,28 @@
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [
-    22000 # syncthing: TCP based sync protocol traffic
-  ];
-  networking.firewall.allowedUDPPorts = [
-    22000 # syncthing: QUIC based sync protocol traffic
-    21027 # syncthing: for discovery broadcasts on IPv4 and multicasts on IPv6
-  ];
+  # Firewall configuration
+  networking.firewall = {
+    # Open TCP ports
+    allowedTCPPorts = [
+      22000 # syncthing: TCP based sync protocol traffic
+    ];
+    # Open UDP ports
+    allowedUDPPorts = [
+      22000 # syncthing: QUIC based sync protocol traffic
+      21027 # syncthing: for discovery broadcasts on IPv4 and multicasts on IPv6
+    ];
+    # WireGuard settings (https://nixos.wiki/wiki/WireGuard#Setting_up_WireGuard_with_NetworkManager)
+    extraCommands = ''
+      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN
+      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN
+    '';
+    extraStopCommands = ''
+      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN || true
+      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
+    '';
+    logReversePathDrops = true;
+  };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
