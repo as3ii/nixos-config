@@ -1,8 +1,11 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-{ lib, pkgs, home-manager, sops-nix, ... }:
+{ lib, pkgs, home-manager, sops-nix, config, ... }:
 
+let
+  user = "as3ii";
+in
 {
   imports =
     [
@@ -16,6 +19,7 @@
       ../../modules/nvidia.nix
       ../../modules/waydroid.nix
       ../../modules/kernel-hardening.nix
+      (import ../../modules/niri { inherit lib pkgs user config; })
       home-manager.nixosModules.home-manager
       sops-nix.nixosModules.sops
     ];
@@ -71,7 +75,7 @@
   ];
 
   # Hostname
-  networking.hostName = "as3ii-thinkpad-nixos";
+  networking.hostName = "${user}-thinkpad-nixos";
 
   hardware.graphics = {
     enable = true;
@@ -129,7 +133,7 @@
   programs.zsh.enable = true;
 
   # Define a user account. Don't forget to set a password with 'passwd'.
-  users.users.as3ii = {
+  users.users.${user} = {
     isNormalUser = true;
     extraGroups = [ "video" "audio" "input" "tty" "dialout" "plugdev" "networkmanager" "wheel" "libvirt" ];
     packages = with pkgs; [ ]; # switched to home-manager
@@ -141,7 +145,7 @@
     useUserPackages = true;
     #extraSpecialArgs = { inherit (config) sops; };
     users = {
-      as3ii = import ../../home-manager/as3ii/home.nix;
+      ${user} = import ../../home-manager/${user}/home.nix;
     };
   };
 
