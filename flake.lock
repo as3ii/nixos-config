@@ -182,6 +182,50 @@
         "type": "github"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ],
+        "quickshell": [
+          "quickshell"
+        ],
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1762802741,
+        "narHash": "sha256-T+su2Rm3tpDmE8lnB0D9Zye9xcIP2MCqfFYxvGw34NY=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "dfd32699280c0730c330aeaaf93e2b573badef1e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "type": "github"
+      }
+    },
+    "quickshell": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1761897390,
+        "narHash": "sha256-er4gYrIoThYLjlsOMTysoRfn67d1Gci+ZpqDrtQxrA0=",
+        "owner": "outfoxxed",
+        "repo": "quickshell",
+        "rev": "fc704e6b5d445899a1565955268c91942a4f263f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "outfoxxed",
+        "repo": "quickshell",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -197,6 +241,8 @@
         ],
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "noctalia": "noctalia",
+        "quickshell": "quickshell",
         "sops-nix": "sops-nix"
       }
     },
@@ -217,6 +263,21 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
         "type": "github"
       }
     }

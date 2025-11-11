@@ -54,14 +54,11 @@ output "eDP-1" {
     mode "3840x2400@60"
     variable-refresh-rate on-demand=true
     scale 2
-    transform "normal"
     position x=1680 y=0
     focus-at-startup
 }
-output "HDMI-A-1" {
-    //mode "1680x1050@60"
-    scale 1
-    transform "normal"
+output "LG Electronics L206WTQ 0x0002A762" {
+    mode "1680x1050@60"
     position x=0 y=0
 }
 
@@ -108,8 +105,6 @@ layout {
 }
 
 environment {
-    //GTK_THEME "Breeze:dark"
-    //QT_STYLE_OVERRIDE "Breeze-Dark"
     QT_QPA_PLATFORM "wayland;xcb"
     NIXOS_OZONE_WL "1"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
@@ -119,10 +114,6 @@ environment {
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
-
-spawn-at-startup "dconf" "write" "/org/gnome/desktop/interface/color-scheme" "'prefer-dark'"
-spawn-sh-at-startup "swaybg -i ~/Pictures/fantasy-nature-river-mountains.jpeg"
-spawn-at-startup "waybar"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -270,6 +261,11 @@ debug {
     honor-xdg-activation-with-invalid-serial
 }
 
+layer-rule {
+    match namespace="^noctalia-overview*"
+    place-within-backdrop true
+}
+
 binds {
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
     // in the end. To find an XKB name for a particular key, you may use a program
@@ -288,7 +284,8 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
+    Mod+Ctrl+V { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
