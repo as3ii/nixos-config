@@ -39,7 +39,25 @@
     # Ensure basic programs are installed
     programs = {
       alacritty.enable = true; # Terminal
-      fuzzel.enable = true; # App launcher
+      # App launcher
+      fuzzel = {
+        enable = true;
+        settings = {
+          colors = {
+            background = "070722ff";
+            text = "ffffffff";
+            prompt = "a9aefeff";
+            placeholder = "9bfeceff";
+            input = "fff59bff";
+            match = "9bfeceff";
+            selection = "fff59bff";
+            selection-text = "a9aefeff";
+            selection-match = "000000ff";
+            counter = "a9eafeff";
+            border = "fff59bff";
+          };
+        };
+      };
     };
 
     # Ensure basic services are enabled
