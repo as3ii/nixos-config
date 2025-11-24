@@ -5,11 +5,11 @@
     # allows the use of pkgs.stable and pkgs.unstable
     (_: prev: {
       unstable = import nixpkgs-unstable {
-        system = prev.system;
+        system = prev.stdenv.hostPlatform.system;
         config.allowUnfree = true;
       };
       stable = import nixpkgs-stable {
-        system = prev.system;
+        system = prev.stdenv.hostPlatform.system;
         config.allowUnfree = true;
       };
     })

@@ -80,6 +80,7 @@
         enabled = true;
         nightTemp = 4500;
         dayTemp = 6500;
+        autoSchedule = false;
         manualSunrise = "07:00";
         manualSunset = "20:00";
       };

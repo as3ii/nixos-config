@@ -176,14 +176,18 @@ workspace "mail" { // 7
 // https://yalter.github.io/niri/Configuration:-Window-Rules
 
 window-rule {
-    match at-startup=true app-id="firefox" title="Mozilla Firefox Private Browsing$"
+    match app-id="firefox"
+    exclude title="Picture-in-Picture"
     open-maximized true
+}
+
+window-rule {
+    match at-startup=true app-id="firefox" title="Mozilla Firefox Private Browsing$"
     open-on-workspace "ff-priv"
 }
 
 window-rule {
     match at-startup=true app-id="firefox" title="Mozilla Firefox$"
-    open-maximized true
     open-on-workspace "firefox"
 }
 
@@ -440,6 +444,7 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
+    Mod+0 { focus-workspace 10; }
     Mod+Shift+1 { move-column-to-workspace 1; }
     Mod+Shift+2 { move-column-to-workspace 2; }
     Mod+Shift+3 { move-column-to-workspace 3; }
@@ -449,6 +454,7 @@ binds {
     Mod+Shift+7 { move-column-to-workspace 7; }
     Mod+Shift+8 { move-column-to-workspace 8; }
     Mod+Shift+9 { move-column-to-workspace 9; }
+    Mod+Shift+0 { move-column-to-workspace 10; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+1 { move-window-to-workspace 1; }

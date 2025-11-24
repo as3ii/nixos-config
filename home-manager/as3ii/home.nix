@@ -23,7 +23,7 @@
     s-tui
     powertop
     libva-utils
-    glxinfo
+    mesa-demos
     vulkan-tools
     wayland-utils
     distrobox

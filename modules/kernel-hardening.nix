@@ -37,7 +37,7 @@
     "page_alloc.shuffle=1"
     # Always enable mitigations for Meltdown
     #"pti" = 1
-  ] ++ lib.optionals (pkgs.system == "x86_64-linux") [
+  ] ++ lib.optionals (pkgs.stdenv.hostPlatform.system == "x86_64-linux") [
     "vsyscall=none"
   ];
 
