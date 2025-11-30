@@ -19,7 +19,7 @@
 
   home.packages = with pkgs; [
     # CLI tools
-    radeontop
+    amdgpu_top
     s-tui
     powertop
     libva-utils
@@ -30,6 +30,7 @@
     (yt-dlp.override { withAlias = true; })
     ffmpeg_7-full
     obs-studio-plugins.obs-vkcapture # required even if OBS is in flatpak
+    schedtool
 
     cifs-utils
 
@@ -77,6 +78,7 @@
     telegram-desktop
     thunderbird
     syncthing
+    gamescope
     mangohud
     protonup-qt
     unstable.steam
