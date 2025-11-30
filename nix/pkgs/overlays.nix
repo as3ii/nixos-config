@@ -16,6 +16,21 @@
     # other overlays
     (_: prev: {
       joshuto = prev.callPackage ./joshuto.nix { };
+      xwayland-satellite = prev.xwayland-satellite.overrideAttrs (final': prev': {
+        version = "0.7-20251128";
+        src = prev.fetchFromGitHub {
+          owner = "Supreeeme";
+          repo = "xwayland-satellite";
+          rev = "b362a3873710a42f7ac2d8ba03772d8290733934";
+          hash = "sha256-yVCJ4Qe/JkdKDu0DddFdAQgDQVeF12nxH7zv3jtooV4=";
+        };
+        cargoDeps = prev'.cargoDeps.overrideAttrs (_: prev'': {
+          vendorStaging = prev''.vendorStaging.overrideAttrs {
+            inherit (final') src;
+            outputHash = "sha256-QAzAD7N8kReX/O7FSoYfDagOCOBmqTCu98okeYPmhBo=";
+          };
+        });
+      });
     })
   ];
   # Waiting for PR: https://github.com/NixOS/nixpkgs/pull/439793
