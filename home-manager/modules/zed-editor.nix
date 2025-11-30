@@ -1,6 +1,8 @@
 { pkgs, lib, ... }:
 
 {
+  home.shellAliases."z." = "zeditor .";
+
   programs.zed-editor = {
     enable = true;
     extensions = [ "nix" "ruff" "toml" "java" ];

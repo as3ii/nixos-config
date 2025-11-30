@@ -36,6 +36,8 @@
       };
     };
 
+    wayland.systemd.target = "niri.service";
+
     # Ensure basic programs are installed
     programs = {
       alacritty.enable = true; # Terminal
