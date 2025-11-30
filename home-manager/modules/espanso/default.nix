@@ -31,8 +31,6 @@ in
       configs = {
         default = {
           keyboard_layout = {
-            rules = "evdev";
-            model = "pc105";
             layout = "${lang}";
           };
           toggle_key = "RIGHT_ALT";

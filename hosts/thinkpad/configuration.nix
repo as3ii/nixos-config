@@ -120,7 +120,6 @@ in
   services.xserver.xkb = {
     layout = "us";
     variant = "altgr-intl";
-    options = "eurosign:e ctrl:nocaps";
   };
   console.useXkbConfig = true; # use xkb in tty
 
