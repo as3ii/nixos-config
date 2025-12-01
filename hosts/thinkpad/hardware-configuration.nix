@@ -96,8 +96,8 @@
           snapshot_preserve_min = "6d";
           snapshot_create = "always";
           incremental = "yes";
-          target_preserve = "10d 6w 2m";
-          target_preserve_min = "10d";
+          target_preserve = "8d 4w 2m";
+          target_preserve_min = "8d";
           stream_compress = "zstd";
           stream_compress_level = "default";
           stream_compress_long = "default";
