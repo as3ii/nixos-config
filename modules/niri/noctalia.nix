@@ -69,7 +69,10 @@
 
       dock.enabled = false;
 
-      location.name = "Italy";
+      location = {
+        name = "Italy";
+        firstDayOfWeek = 1;
+      };
 
       wallpaper = {
         overviewEnabled = true;
@@ -86,4 +89,6 @@
       };
     };
   };
+
+  services.swayidle.events."before-sleep" = "noctalia-shell ipc call lockScreen lock";
 }

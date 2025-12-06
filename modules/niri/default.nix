@@ -2,7 +2,10 @@
 
 {
   # Enable niri
-  programs.niri.enable = true;
+  programs.niri = {
+    enable = true;
+    useNautilus = false;
+  };
 
   # Ensure basic services and features are present
   security.polkit.enable = true; # Polkit
