@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-{ lib, pkgs, home-manager, sops-nix, config, ... }:
+{ lib, pkgs, home-manager, sops-nix, ... }:
 
 let
   user = "as3ii";
@@ -19,7 +19,8 @@ in
       ../../modules/nvidia.nix
       ../../modules/waydroid.nix
       ../../modules/kernel-hardening.nix
-      (import ../../modules/niri { inherit lib pkgs user config; })
+      ../../modules/desktops/niri.nix
+      #../../modules/desktops/plasma6.nix
       home-manager.nixosModules.home-manager
       sops-nix.nixosModules.sops
     ];
@@ -96,25 +97,7 @@ in
     ];
   };
 
-  # Enable the Plasma 6 Desktop Environment.
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-    autoNumlock = true;
-    enableHidpi = true;
-  };
-  services.desktopManager.plasma6.enable = true;
   services.power-profiles-daemon.enable = true;
-  environment.systemPackages = with pkgs; [
-    kdePackages.plasma-thunderbolt
-    kdePackages.discover
-    kdePackages.kgpg
-  ];
-  environment.plasma6.excludePackages = with pkgs; [
-    kdePackages.elisa
-    kdePackages.oxygen
-    kdePackages.kate
-  ];
 
   # Configure keymap in X11
   services.xserver.xkb = {

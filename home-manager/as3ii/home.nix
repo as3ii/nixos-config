@@ -15,6 +15,7 @@
     ../modules/alacritty
     ../modules/espanso
     ../modules/joshuto
+    ../modules/niri
   ];
 
   home.packages = with pkgs; [
