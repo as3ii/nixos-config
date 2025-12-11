@@ -178,7 +178,7 @@ workspace "mail" { // 7
 window-rule {
     match app-id="firefox"
     exclude title="Picture-in-Picture"
-    open-maximized true
+    open-maximized-to-edges true
 }
 
 window-rule {
@@ -193,20 +193,20 @@ window-rule {
 
 window-rule {
     match app-id="telegram"
-    open-maximized true
+    open-maximized-to-edges true
     open-on-workspace "telegram"
 }
 
 window-rule {
     match app-id="qpwgraph"
-    open-maximized true
+    open-maximized-to-edges true
     open-on-workspace "qpwgraph"
 }
 
 window-rule {
     match app-id="easy-effect"
     match app-id="spotify"
-    open-maximized true
+    open-maximized-to-edges true
     open-on-workspace "misc"
 }
 
@@ -214,6 +214,11 @@ window-rule {
     match app-id="thunderbird"
     open-maximized true
     open-on-workspace "mail"
+}
+
+window-rule {
+    match app-id="veracrypt"
+    open-floating false
 }
 
 // Work around WezTerm's initial configure bug
@@ -233,6 +238,12 @@ window-rule {
     // - Flatpak Firefox (app-id is "org.mozilla.firefox")
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     open-floating true
+}
+
+// Steam notifications
+window-rule {
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+    default-floating-position x=10 y=10 relative-to="bottom-right"
 }
 
 // Example: block out two password managers from screen capture.
