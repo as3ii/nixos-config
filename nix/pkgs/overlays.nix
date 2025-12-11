@@ -17,17 +17,17 @@
     (_: prev: {
       joshuto = prev.callPackage ./joshuto.nix { };
       xwayland-satellite = prev.xwayland-satellite.overrideAttrs (final': prev': {
-        version = "0.7-20251128";
+        version = "0.8-20251211";
         src = prev.fetchFromGitHub {
           owner = "Supreeeme";
           repo = "xwayland-satellite";
-          rev = "b362a3873710a42f7ac2d8ba03772d8290733934";
-          hash = "sha256-yVCJ4Qe/JkdKDu0DddFdAQgDQVeF12nxH7zv3jtooV4=";
+          rev = "f0ad674b7009a6afd80cea59d4fbf975dd68ee95";
+          hash = "sha256-HtTPbV6z6AJPg2d0bHaJKFrnNha+SEbHvbJafKAQ614=";
         };
         cargoDeps = prev'.cargoDeps.overrideAttrs (_: prev'': {
           vendorStaging = prev''.vendorStaging.overrideAttrs {
             inherit (final') src;
-            outputHash = "sha256-QAzAD7N8kReX/O7FSoYfDagOCOBmqTCu98okeYPmhBo=";
+            outputHash = "sha256-HGrMjNIsUqh8AFtSABk615x4B9ygrVEn26V0G1kX/nA=";
           };
         });
       });
