@@ -70,4 +70,11 @@
     platformTheme.name = "qtct";
     style.name = "breeze";
   };
+  gtk = {
+    enable = true;
+    theme = {
+      package = pkgs.gnome-themes-extra;
+      name = "Adwaita-dark";
+    };
+  };
 }
