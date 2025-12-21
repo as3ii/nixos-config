@@ -88,6 +88,7 @@
               home-manager.nixosModules.home-manager
               sops-nix.nixosModules.sops
               {
+                nix.settings.system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" "gccarch-znver4" "gccarch-x86-64-v4" ];
                 nixpkgs.config.allowUnfree = true;
                 home-manager.extraSpecialArgs = inputs // { inherit system; };
               }
