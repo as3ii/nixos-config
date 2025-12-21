@@ -11,10 +11,13 @@
       general = {
         animationSpeed = 1.5;
         enableShadows = false;
-        radiusRatio = 0;
+        radiusRatio = 0.25;
         screenRadiusRatio = 0;
+        dimmerOpacity = 0.5;
+        lockOnSuspend = true;
       };
       bar = {
+        capsuleOpacity = 1;
         widgets = {
           left = [
             { id = "ControlCenter"; useDistroLogo = true; }
@@ -62,12 +65,15 @@
             "profile-card"
             "shortcuts-card"
             "audio-card"
+            "brightness-card"
             #"weather-card"
             "media-sysmon-card"
           ];
         };
 
       dock.enabled = false;
+
+      appLauncher.terminalCommand = "alacritty -e";
 
       location = {
         name = "Italy";
@@ -76,7 +82,7 @@
 
       wallpaper = {
         overviewEnabled = true;
-        defaultWallpaper = "${config.xdg.userDirs.pictures}/fantasy-nature-river-mountains.jpeg";
+        directory = "${config.xdg.userDirs.pictures}";
       };
 
       nightLight = {
