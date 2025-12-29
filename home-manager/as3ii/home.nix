@@ -41,7 +41,6 @@
 
     # Programming
     python3
-    rustup
 
     # Audio
     calf
