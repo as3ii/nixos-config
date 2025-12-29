@@ -23,7 +23,7 @@ in
     config = {
       profile = "gpu-hq";
       hwdec = "auto-safe";
-      vo = "gpu";
+      vo = "gpu-next";
     };
     scripts = with pkgs.mpvScripts; [
       visualizer
