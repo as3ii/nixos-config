@@ -97,6 +97,7 @@ in
     ];
   };
 
+  services.upower.enable = true;
   services.power-profiles-daemon.enable = true;
 
   # Configure keymap in X11

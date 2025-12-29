@@ -7,6 +7,7 @@
     wayland.enable = true;
     autoNumlock = true;
     enableHidpi = true;
+    theme = "sddm-astronaut-theme";
   };
 
   # Enable niri
@@ -22,6 +23,7 @@
 
   environment.systemPackages = with pkgs; [
     xwayland-satellite
+    (sddm-astronaut.override { embeddedTheme = "puple_leaves"; })
   ];
 
   xdg.portal = {
