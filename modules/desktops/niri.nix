@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
+let
+  sddmTheme = pkgs.sddm-astronaut.override { embeddedTheme = "purple_leaves"; };
+in
 {
   # Enable sddm
   services.displayManager.sddm = {
@@ -7,7 +10,8 @@
     wayland.enable = true;
     autoNumlock = true;
     enableHidpi = true;
-    theme = "sddm-astronaut-theme";
+    extraPackages = [ sddmTheme ];
+    theme = "${sddmTheme}/share/sddm/themes/sddm-astronaut-theme";
   };
 
   # Enable niri
@@ -23,7 +27,6 @@
 
   environment.systemPackages = with pkgs; [
     xwayland-satellite
-    (sddm-astronaut.override { embeddedTheme = "puple_leaves"; })
   ];
 
   xdg.portal = {
