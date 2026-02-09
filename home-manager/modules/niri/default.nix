@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [ ./noctalia.nix ];
@@ -62,6 +62,13 @@
     dolphin-plugins
     discover # GUI flatpak handling
   ]);
+
+  home.pointerCursor = {
+    enable = true;
+    package = pkgs.kdePackages.breeze;
+    name = "Breeze";
+    gtk.enable = config.gtk.enable;
+  };
 
   xdg.configFile."niri/config.kdl".source = ./niri.kdl;
 
