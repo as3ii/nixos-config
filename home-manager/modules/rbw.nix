@@ -70,8 +70,6 @@ in
       };
     };
 
-    xdg.configFile."rbw/config.json".force = true;
-
     home.packages = [
       rofi-rbw-wrapper-wayland
     ];

@@ -94,7 +94,7 @@
         use_system_clipboard = "on_yank";
         use_smartcase_find = true;
       };
-      relative_line_numbers = true;
+      relative_line_numbers = "enabled";
       scrollbar.show = "auto";
       telemetry.metrics = false;
       load_direnv = "shell_hook";

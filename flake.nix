@@ -90,7 +90,12 @@
               {
                 nix.settings.system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" "gccarch-znver4" "gccarch-x86-64-v4" ];
                 nixpkgs.config.allowUnfree = true;
-                home-manager.extraSpecialArgs = inputs // { inherit system; };
+                home-manager = {
+                  extraSpecialArgs = inputs // { inherit system; };
+                  # Fix custom rbw module
+                  backupFileExtension = "bak";
+                  overwriteBackup = true;
+                };
               }
               (import ./nix/pkgs)
               ./hosts/thinkpad/configuration.nix
