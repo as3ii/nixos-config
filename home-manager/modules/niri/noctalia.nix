@@ -15,6 +15,7 @@
         screenRadiusRatio = 0;
         dimmerOpacity = 0.5;
         lockOnSuspend = true;
+        telemetryEnabled = false;
       };
       bar = {
         capsuleOpacity = 1;
@@ -28,13 +29,14 @@
             { id = "Clock"; formatHorizontal = "HH:mm ddd, MMM dd"; }
           ];
           right = [
-            { id = "WiFi"; }
+            { id = "Network"; }
             { id = "Bluetooth"; }
-            { id = "SystemMonitor"; showNetworkStats = true; }
+            { id = "SystemMonitor"; showNetworkStats = true; compactMode = false; }
             { id = "Volume"; }
             { id = "Microphone"; }
             { id = "Brightness"; }
             { id = "Battery"; displayMode = "alwaysShow"; }
+            { id = "NightLight"; }
             { id = "NotificationHistory"; }
             { id = "KeepAwake"; }
             { id = "PowerProfile"; }
@@ -51,7 +53,7 @@
         {
           shortcuts = {
             left = ids [
-              "WiFi"
+              "Network"
               "Bluetooth"
             ];
             right = ids [
