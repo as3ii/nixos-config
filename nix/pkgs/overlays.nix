@@ -21,13 +21,13 @@
         src = prev.fetchFromGitHub {
           owner = "Supreeeme";
           repo = "xwayland-satellite";
-          rev = "f0ad674b7009a6afd80cea59d4fbf975dd68ee95";
-          hash = "sha256-HtTPbV6z6AJPg2d0bHaJKFrnNha+SEbHvbJafKAQ614=";
+          rev = "86f5bd5d867ad6e120935dfe825f6b903ebbeddd";
+          hash = "sha256-Q75S8cEqJoZ92s1y4zArvk2U1ayAy2E4SaF7gbNXkYQ=";
         };
         cargoDeps = prev'.cargoDeps.overrideAttrs (_: prev'': {
           vendorStaging = prev''.vendorStaging.overrideAttrs {
             inherit (final') src;
-            outputHash = "sha256-HGrMjNIsUqh8AFtSABk615x4B9ygrVEn26V0G1kX/nA=";
+            outputHash = "sha256-16L6gsvze+m7XCJlOA1lsPNELE3D364ef2FTdkh0rVY=";
           };
         });
       });
