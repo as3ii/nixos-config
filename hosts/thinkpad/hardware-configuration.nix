@@ -71,6 +71,11 @@
     };
 
   swapDevices = [{ device = "/swap/swapfile"; }];
+  # Hibernation stuff
+  boot.resumeDevice = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
+  boot.kernelParams = [ "resume_offset=103867648" ];
+  powerManagement.enable = true;
+
   zramSwap = {
     enable = true;
     priority = 10;
@@ -92,11 +97,11 @@
         onCalendar = "Mon,Thu *-*-*"; # 2 times a week
         settings = {
           timestamp_format = "long";
-          snapshot_preserve = "6d 2w 2m";
+          snapshot_preserve = "6d 2w 1m";
           snapshot_preserve_min = "6d";
           snapshot_create = "always";
           incremental = "yes";
-          target_preserve = "8d 4w 2m";
+          target_preserve = "7d 3w 2m";
           target_preserve_min = "8d";
           stream_compress = "zstd";
           stream_compress_level = "default";
