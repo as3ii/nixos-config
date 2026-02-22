@@ -46,7 +46,7 @@
       };
       timeouts = [
         # 5 minutes
-        { timeout = 300; command = "niri msg action power-off-monitors"; resumeCommand = "niri msg action power-on-monitors"; }
+        { timeout = 300; command = "${pkgs.niri}/bin/niri msg action power-off-monitors"; }
       ];
     };
   };
