@@ -11,7 +11,7 @@ image_default = [
   #  "--",
   #], fork = true, silent = true },
   #{ command = "exiftool", pager = true },
-  { command = "gwenview", fork = true},
+  { command = "gwenview", fork = true },
   { command = "mediainfo", pager = true },
 ]
 

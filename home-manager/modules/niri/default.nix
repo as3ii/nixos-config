@@ -55,12 +55,13 @@
     brightnessctl
     networkmanagerapplet
     playerctl
-    oculante # Image viewer
+    # oculante # Image viewer
   ] ++ (with pkgs.kdePackages; [
     ark # GUI archive manager
     dolphin # GUI file manager
     dolphin-plugins
     discover # GUI flatpak handling
+    gwenview # Image viewer
   ]);
 
   home.pointerCursor = {
@@ -83,5 +84,6 @@
       package = pkgs.gnome-themes-extra;
       name = "Adwaita-dark";
     };
+    gtk4.theme = config.gtk.theme;
   };
 }
