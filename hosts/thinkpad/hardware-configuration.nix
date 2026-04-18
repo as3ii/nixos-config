@@ -73,18 +73,26 @@
   swapDevices = [{ device = "/swap/swapfile"; }];
   # Hibernation stuff
   boot.resumeDevice = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
-  boot.kernelParams = [ "resume_offset=103867648" ];
+  boot.kernelParams = [
+    "resume_offset=103867648"
+    # Zswap configs
+    "zswap.enabled=1"
+    "zswap.compressor=lz4" # Compression algorithm: lz4, lz4hc, zstd, lzo, 842, defalte
+    "zswap.max_pool_percent=40" # Percentage of ram that can be used
+    "zswap.shrinker_enabled=1" # Shrink pool when on high memory pressure
+  ];
+  boot.initrd.systemd.enable = true; # Required to use lz4 as compressor for zswap
   powerManagement.enable = true;
 
-  zramSwap = {
-    enable = true;
-    priority = 10;
-    algorithm = "zstd";
-  };
-  # Drastically reduce latency and increase IOPS (but reduces raw speed) when using zram+zstd
-  # This may reduce the performance of on-disk swap
-  # See: https://notes.xeome.dev/notes/Zram#conclusion
-  boot.kernel.sysctl."vm.page-cluster" = 0; # Default value: 3
+  # zramSwap = {
+  #   enable = true;
+  #   priority = 10;
+  #   algorithm = "zstd";
+  # };
+  # # Drastically reduce latency and increase IOPS (but reduces raw speed) when using zram+zstd
+  # # This may reduce the performance of on-disk swap
+  # # See: https://notes.xeome.dev/notes/Zram#conclusion
+  # boot.kernel.sysctl."vm.page-cluster" = 0; # Default value: 3
 
   services = {
     btrfs.autoScrub = {
