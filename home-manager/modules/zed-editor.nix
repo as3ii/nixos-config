@@ -5,7 +5,7 @@
 
   programs.zed-editor = {
     enable = true;
-    extensions = [ "nix" "ruff" "toml" "java" ];
+    extensions = [ "nix" "ruff" "toml" "java" "typst" "codebook" ];
     extraPackages = with pkgs; [
       nil # nix
       ruff # python
@@ -62,13 +62,20 @@
           };
           codeAction.fixViolation.enable = false;
         };
+        tinymist.settings = {
+          formatterPrintWidth = 80;
+          formatterProseWrap = true;
+        };
       };
       languages = {
         Python = {
-          language_servers = [ "ruff" ];
+          language_servers = [ "ruff" "..." ];
         };
         Nix = {
-          language_servers = [ "nil" "!nixd" ];
+          language_servers = [ "nil" "!nixd" "..." ];
+        };
+        Typst = {
+          language_servers = [ "tinymist" "..." ];
         };
       };
       language_models = {
