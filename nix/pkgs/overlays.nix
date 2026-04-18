@@ -31,6 +31,16 @@
           };
         });
       });
+      niri = prev.niri.overrideAttrs (_: _: {
+        version = "25.11-unstable-20260327";
+        src = prev.fetchFromGitHub {
+          owner = "niri-wm";
+          repo = "niri";
+          rev = "8f48f56fe19918b5cfa02e5d68a47ebaf7bf3dee";
+          hash = "sha256-FC9eYtSmplgxllCX4/3hJq5J3sXWKLSc7at8ZUxycVw=";
+        };
+        nativeInstallCheckInputs = [ ]; # Disables version check
+      });
     })
   ];
 }

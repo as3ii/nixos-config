@@ -1,11 +1,12 @@
 { config, noctalia, ... }:
 
+# nix shell nixpkgs#json-diff nixpkgs#jq -c bash -c "json-diff <(jq -S . ~/.config/noctalia/settings.json) <(noctalia-shell ipc call state all | jq -S .settings)"
+
 {
   imports = [ noctalia.homeModules.default ];
 
   programs.noctalia-shell = {
     enable = true;
-    systemd.enable = true;
     # https://docs.noctalia.dev/getting-started/nixos/#config-ref
     settings = {
       general = {
@@ -89,8 +90,8 @@
 
       nightLight = {
         enabled = true;
-        nightTemp = 4500;
-        dayTemp = 6500;
+        nightTemp = "4500";
+        dayTemp = "6500";
         autoSchedule = false;
         manualSunrise = "07:00";
         manualSunset = "20:00";

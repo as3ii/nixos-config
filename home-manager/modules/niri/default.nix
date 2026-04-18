@@ -46,7 +46,8 @@
       };
       timeouts = [
         # 5 minutes
-        { timeout = 300; command = "${pkgs.niri}/bin/niri msg action power-off-monitors"; }
+        # https://github.com/niri-wm/niri/issues/3295
+        #{ timeout = 300; command = "${pkgs.niri}/bin/niri msg action power-off-monitors"; }
       ];
     };
   };
@@ -55,11 +56,11 @@
     brightnessctl
     networkmanagerapplet
     playerctl
-    # oculante # Image viewer
   ] ++ (with pkgs.kdePackages; [
     ark # GUI archive manager
     dolphin # GUI file manager
-    dolphin-plugins
+    kio # Network shares
+    kio-fuse
     discover # GUI flatpak handling
     gwenview # Image viewer
   ]);

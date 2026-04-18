@@ -1,7 +1,7 @@
 // This config is in the KDL format: https://kdl.dev
 // "/-" comments out the following node.
 // Check the wiki for a full description of the configuration:
-// https://yalter.github.io/niri/
+// https://niri-wm.github.io/niri/
 
 input {
     keyboard {
@@ -265,6 +265,8 @@ window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
 }
+
+spawn-at-startup "noctalia-shell"
 
 spawn-at-startup "firefox"
 spawn-at-startup "Telegram"
