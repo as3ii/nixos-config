@@ -2,15 +2,21 @@
 
 {
   home.shellAliases."z." = "zeditor .";
+  home.shellAliases."z.." = "zeditor ..";
 
   programs.zed-editor = {
     enable = true;
-    extensions = [ "nix" "ruff" "toml" "java" "typst" "codebook" ];
-    extraPackages = with pkgs; [
-      nil # nix
-      ruff # python
-      shellcheck # bash
-      rust-analyzer # rust
+    extensions = [
+      "codebook"
+      "docker-compose"
+      "dockerfile"
+      "java"
+      "just"
+      "nix"
+      "opentofu"
+      "ruff"
+      "toml"
+      "typst"
     ];
     userKeymaps = [
       {
@@ -18,6 +24,7 @@
         bindings = {
           ctrl-tab = "workspace::ActivateNextPane";
           ctrl-shift-tab = "workspace::ActivatePreviousPane";
+          "/" = "buffer_search::Deploy";
         };
       }
       {
@@ -40,7 +47,7 @@
       lsp = {
         jdtls = {
           settings.java = {
-            home = "${pkgs.jdk}";
+            home = "${pkgs.jdk}/lib/openjdk/";
             jdt.ls.lombokSupport.enabled = true;
             format = {
               enabled = true;
@@ -50,7 +57,7 @@
               #};
             };
           };
-          binary.path_lookup = true;
+          binary.path = lib.getExe pkgs.jdt-language-server;
         };
         nil.binary.path = lib.getExe pkgs.nil;
         ruff.initialization_options.settings = {
