@@ -32,14 +32,21 @@
         });
       });
       niri = prev.niri.overrideAttrs (_: _: {
-        version = "25.11-unstable-20260327";
+        version = "26.04-unstable-20260529";
         src = prev.fetchFromGitHub {
           owner = "niri-wm";
           repo = "niri";
-          rev = "8f48f56fe19918b5cfa02e5d68a47ebaf7bf3dee";
-          hash = "sha256-FC9eYtSmplgxllCX4/3hJq5J3sXWKLSc7at8ZUxycVw=";
+          rev = "f9f43d826ab4014a7c302be28d7da33e12f5be37";
+          hash = "sha256-t7lKVshV/srD0G06j4r5P5qj9zaDeZ9JYFCxHDGROZU=";
         };
         nativeInstallCheckInputs = [ ]; # Disables version check
+        patches = [
+          # https://github.com/niri-wm/niri/pull/3910
+          (prev.fetchpatch2 {
+            url = "https://github.com/niri-wm/niri/commit/164c9575cdb37ee8e57951eea7dac3ce957579c2.patch";
+            hash = "sha256-JSwE3IwbDjcb6UXGcBUTBZORxO/Ij/lhqChEJZD0naA=";
+          })
+        ];
       });
     })
   ];

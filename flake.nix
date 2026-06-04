@@ -2,7 +2,7 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.follows = "nixpkgs-unstable";
 
@@ -31,7 +31,7 @@
     };
 
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell/v4.7.5";
+      url = "github:noctalia-dev/noctalia-shell/v4.7.7";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
