@@ -30,7 +30,7 @@
     open = "xdg-open";
     cal = "cal -m -3";
     ssh = "TERM=xterm-256color ssh";
-    ssh-nohost = "ssh -o 'UserKnownHostFile=/dev/null'";
+    ssh-nohost = "ssh -o 'UserKnownHostsFile=/dev/null'";
 
     cat = "bat";
 
