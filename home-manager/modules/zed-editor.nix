@@ -24,6 +24,11 @@
         bindings = {
           ctrl-tab = "workspace::ActivateNextPane";
           ctrl-shift-tab = "workspace::ActivatePreviousPane";
+        };
+      }
+      {
+        context = "Workspace && not_editing";
+        bindings = {
           "/" = "buffer_search::Deploy";
         };
       }
@@ -84,6 +89,8 @@
         Typst = {
           language_servers = [ "tinymist" "..." ];
         };
+        C.tab_size = 2;
+        "C++".tab_size = 2;
       };
       language_models = {
         ollama = {
@@ -98,6 +105,7 @@
         };
       };
       agent = {
+        default_profile = "ask";
         default_model = {
           provider = "ollama";
           model = "";
