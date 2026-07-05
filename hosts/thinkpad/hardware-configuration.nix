@@ -100,32 +100,60 @@
       interval = "weekly";
       fileSystems = [ "/" ];
     };
-    btrbk = {
-      instances."btrbk" = {
-        onCalendar = "Mon,Thu *-*-*"; # 2 times a week
-        settings = {
-          timestamp_format = "long";
-          snapshot_preserve = "6d 2w 1m";
-          snapshot_preserve_min = "6d";
-          snapshot_create = "always";
-          incremental = "yes";
-          target_preserve = "7d 3w 2m";
-          target_preserve_min = "8d";
-          stream_compress = "zstd";
-          stream_compress_level = "default";
-          stream_compress_long = "default";
-          send_protocol = "2";
-          volume."/btrfs_root" = {
-            snapshot_dir = "@snapshot";
-            target = "/mnt/veracrypt2/snapshot";
-            subvolume = {
-              "@home" = { };
-              "@" = { };
+    btrbk =
+      let
+        onCalendar = "Mon,Thu *-*-*";
+        timestamp_format = "long";
+        snapshot_preserve = "6d 2w 1m";
+        snapshot_preserve_min = "6d";
+        incremental = "yes";
+        target_preserve = "7d 3w 2m";
+        target_preserve_min = "8d";
+        snapshot_dir = "@snapshot";
+        volume = "/btrfs_root";
+        subvolume = {
+          "@home" = { };
+          "@" = { };
+        };
+        target = "/mnt/veracrypt2/snapshot";
+      in
+      {
+        instances."btrbk" = {
+          onCalendar = onCalendar; # 2 times a week
+          settings = {
+            timestamp_format = timestamp_format;
+            snapshot_preserve = snapshot_preserve;
+            snapshot_preserve_min = snapshot_preserve_min;
+            incremental = incremental;
+            snapshot_create = "onchange";
+            volume."${volume}" = {
+              snapshot_dir = snapshot_dir;
+              subvolume = subvolume;
+            };
+          };
+        };
+        instances."btrbk-remote" = {
+          onCalendar = onCalendar; # 2 times a week
+          settings = {
+            timestamp_format = timestamp_format;
+            snapshot_preserve = snapshot_preserve;
+            snapshot_preserve_min = snapshot_preserve_min;
+            incremental = incremental;
+            snapshot_create = "no";
+            target_preserve = target_preserve;
+            target_preserve_min = target_preserve_min;
+            stream_compress = "zstd";
+            stream_compress_level = "default";
+            stream_compress_long = "default";
+            send_protocol = "2";
+            volume."${volume}" = {
+              snapshot_dir = snapshot_dir;
+              subvolume = subvolume;
+              target = target;
             };
           };
         };
       };
-    };
   };
 
   # Some default options
