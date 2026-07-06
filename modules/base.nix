@@ -74,9 +74,9 @@
   systemd.settings.Manager = {
     DefaultTimeoutStopSec = lib.mkDefault "60s";
   };
-  systemd.user.extraConfig = lib.mkDefault ''
-    DefaultTimeoutStopSec=60s
-  '';
+  systemd.user.settings.Manager = {
+    DefaultTimeoutStopSec = lib.mkDefault "60s";
+  };
 
   # Fonts
   fonts = {

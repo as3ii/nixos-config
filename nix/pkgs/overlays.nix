@@ -17,27 +17,27 @@
     (_: prev: {
       joshuto = prev.callPackage ./joshuto.nix { };
       xwayland-satellite = prev.xwayland-satellite.overrideAttrs (final': prev': {
-        version = "0.8.1";
+        version = "0.8.1-unstable-20260612";
         src = prev.fetchFromGitHub {
           owner = "Supreeeme";
           repo = "xwayland-satellite";
-          rev = "a879e5e0896a326adc79c474bf457b8b99011027";
-          hash = "sha256-BUE41HjLIGPjq3U8VXPjf8asH8GaMI7FYdgrIHKFMXA=";
+          rev = "8575d0ef55d70f9b4c46b6bffb3accf912217e1e";
+          hash = "sha256-28696iIw8uE0ZUyFTtzhEM8xMh85clCYypMxkvUi+sc=";
         };
         cargoDeps = prev'.cargoDeps.overrideAttrs (_: prev'': {
           vendorStaging = prev''.vendorStaging.overrideAttrs {
             inherit (final') src;
-            outputHash = "sha256-16L6gsvze+m7XCJlOA1lsPNELE3D364ef2FTdkh0rVY=";
+            outputHash = "sha256-jbEihJYcOwFeDiMYlOtaS8GlunvSze80iWahDj1qDrs=";
           };
         });
       });
-      niri = prev.niri.overrideAttrs (_: _: {
-        version = "26.04-unstable-20260529";
+      niri = prev.niri.overrideAttrs (final': prev': {
+        version = "26.04-unstable-20260618";
         src = prev.fetchFromGitHub {
           owner = "niri-wm";
           repo = "niri";
-          rev = "f9f43d826ab4014a7c302be28d7da33e12f5be37";
-          hash = "sha256-t7lKVshV/srD0G06j4r5P5qj9zaDeZ9JYFCxHDGROZU=";
+          rev = "49fc6117fd6c043adaa2ead316b82db5ed735d36";
+          hash = "sha256-Ii/koEm/sRyg65qbAQWqEgboSEIhdH0EL4KglAc14p0=";
         };
         nativeInstallCheckInputs = [ ]; # Disables version check
         patches = [
@@ -47,6 +47,12 @@
             hash = "sha256-JSwE3IwbDjcb6UXGcBUTBZORxO/Ij/lhqChEJZD0naA=";
           })
         ];
+        cargoDeps = prev'.cargoDeps.overrideAttrs (_: prev'': {
+          vendorStaging = prev''.vendorStaging.overrideAttrs {
+            inherit (final') src;
+            outputHash = "sha256-jGORNwJ/F9UrajObXdGLbOTGEpCv919puUuWojbuVwo=";
+          };
+        });
       });
     })
   ];

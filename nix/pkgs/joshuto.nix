@@ -9,17 +9,17 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "joshuto";
-  version = "0.9.9-unstable-2025-05-26";
+  version = "0.9.9-unstable-2026-07-06";
 
   src = fetchFromGitHub {
     owner = "as3ii";
     repo = "joshuto";
-    rev = "e55572b154a6f2dbe995370ac82dc67b3fb4bf98";
+    rev = "7a52969c4091c56eb02ee90ca410958c4d92d482";
     #hash = lib.fakeHash;
-    hash = "sha256-BSSJo75aPzPlzIY56izyDp0MnNKeMkiCEMKoGsa2NAQ=";
+    hash = "sha256-E8khqAYAWW0va6/6f+Ix6RejyI3mydr+G5fQuK2GRgw=";
   };
 
-  cargoHash = "sha256-K/++/NdOLSvhxQ8LBS+jnthCRJxScoOjWSp7pmfHVaQ=";
+  cargoHash = "sha256-37lXYDKHoaUo3jMfYfxq46pan4OrlTL8MspOymxqAuo=";
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -39,11 +39,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/as3ii/joshuto";
     changelog = "https://github.com/kamiyaa/joshuto/releases/tag/${src.rev}";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [
-      figsoda
-      totoroot
-      xrelkd
-    ];
     mainProgram = "joshuto";
   };
 }
