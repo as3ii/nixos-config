@@ -27,6 +27,7 @@ in
 
   environment.systemPackages = with pkgs; [
     xwayland-satellite
+    gcr
   ];
 
   xdg.portal = {
