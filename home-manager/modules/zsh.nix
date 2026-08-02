@@ -6,7 +6,7 @@
     enableCompletion = true;
     autocd = true;
     autosuggestion.enable = true;
-    dotDir = "${config.xdg.configHome}";
+    dotDir = "${config.xdg.configHome}/zsh";
     history = {
       append = true;
       extended = true;
