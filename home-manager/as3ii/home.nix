@@ -117,6 +117,7 @@
   fonts.fontconfig.enable = true;
 
   xdg.enable = true;
+  xdg.userDirs.enable = true;
 
   xdg.desktopEntries.firefox-private = {
     name = "Firefox-private";
@@ -149,5 +150,5 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "24.11"; # Please read the comment before changing.
+  home.stateVersion = "26.11"; # Please read the comment before changing.
 }
