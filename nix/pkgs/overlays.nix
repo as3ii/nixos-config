@@ -17,12 +17,13 @@
     (_: prev: {
       joshuto = prev.callPackage ./joshuto.nix { };
       xwayland-satellite = prev.xwayland-satellite.overrideAttrs (final': prev': {
-        version = "0.8.2";
+        version = "0.8.2-20260808";
         src = prev.fetchFromGitHub {
           owner = "Supreeeme";
           repo = "xwayland-satellite";
-          rev = "8d135d3b2854b30fd01ea6cd6c27e523dd50a839";
-          hash = "sha256-Mb7jpqnrcYCfNSItIkkHpuR3YxWFxPuIBfcwNKlRBkk=";
+          rev = "3bc915f09dd62bb2651a715114f9d140344bc6c1";
+          hash = "sha256-hF2atQzapHBLX5NFqJMcKZAWHfGkKQeNu1eQr46+AGg=";
+          # hash = prev.lib.fakeHash;
         };
         cargoDeps = prev'.cargoDeps.overrideAttrs (_: prev'': {
           vendorStaging = prev''.vendorStaging.overrideAttrs {
@@ -32,12 +33,13 @@
         });
       });
       niri = prev.niri.overrideAttrs (final': prev': {
-        version = "26.04-unstable-20260720";
+        version = "26.04-unstable-20260819";
         src = prev.fetchFromGitHub {
           owner = "niri-wm";
           repo = "niri";
-          rev = "7f26c3ee804fb6ed458ef7fb0e3c794f14e0b3bc";
-          hash = "sha256-9EMn69JBcFWFgUM7f0VBAX+jBby5b9H3M59U75+5yI4=";
+          rev = "b0eb8ad8c80094de34abd88c109aea421461622b";
+          hash = "sha256-dzLsp/FvMerhsjfsWtFK/BTlJ5FZwLWlhsFJRRxpmbU=";
+          # hash = prev.lib.fakeHash;
         };
         nativeInstallCheckInputs = [ ]; # Disables version check
         patches = [
@@ -50,7 +52,7 @@
         cargoDeps = prev'.cargoDeps.overrideAttrs (_: prev'': {
           vendorStaging = prev''.vendorStaging.overrideAttrs {
             inherit (final') src;
-            outputHash = "sha256-HypBB3PL4nVFMNH2+jEK0+dG9dJ920nHi8GwRoeH/v4=";
+            outputHash = "sha256-aNovCzrTtmqTO33YtZap47npdN73zXC1bap5q5dZvZk=";
           };
         });
       });

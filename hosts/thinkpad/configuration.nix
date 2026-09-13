@@ -134,10 +134,8 @@ in
   };
 
   # Enable GUI support for Logitech Wireless Devices (solaar)
-  hardware.logitech.wireless = {
-    enable = true;
-    enableGraphical = true;
-  };
+  hardware.logitech.wireless.enable = true;
+  programs.solaar.enable = true;
 
   # Enable fingerprint reader support
   #services.fprintd.enable = true;

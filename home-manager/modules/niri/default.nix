@@ -77,7 +77,7 @@
   qt = {
     enable = true;
     platformTheme.name = "qtct";
-    style.name = "breeze";
+    style.name = "Breeze";
   };
   gtk = {
     enable = true;

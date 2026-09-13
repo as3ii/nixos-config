@@ -119,6 +119,7 @@
       relative_line_numbers = "enabled";
       scrollbar.show = "auto";
       telemetry.metrics = false;
+      title_bar.show_sign_in = false;
       load_direnv = "shell_hook";
       auto_signature_help = true;
       diagnostics.inline.enabled = true;
