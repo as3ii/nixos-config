@@ -72,7 +72,7 @@
     wofi
     kcc
     calibre
-    libreoffice-qt6-fresh
+    libreoffice-qt-stable
     heroic
     prismlauncher
     discord
@@ -85,6 +85,7 @@
     unstable.steam
     unstable.steam-run
     veracrypt
+    winbox4
     xournalpp
   ];
 

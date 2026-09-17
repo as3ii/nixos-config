@@ -47,7 +47,7 @@
       timeouts = [
         # 5 minutes
         # https://github.com/niri-wm/niri/issues/3295
-        #{ timeout = 300; command = "${pkgs.niri}/bin/niri msg action power-off-monitors"; }
+        { timeout = 300; command = "${pkgs.niri}/bin/niri msg action power-off-monitors"; }
       ];
     };
   };

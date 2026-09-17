@@ -1,103 +1,134 @@
-{ config, noctalia, ... }:
-
-# nix shell nixpkgs#json-diff nixpkgs#jq -c bash -c "json-diff <(jq -S . ~/.config/noctalia/settings.json) <(noctalia-shell ipc call state all | jq -S .settings)"
+{ config, ... }:
 
 {
-  imports = [ noctalia.homeModules.default ];
-
-  programs.noctalia-shell = {
+  programs.noctalia = {
     enable = true;
-    # https://docs.noctalia.dev/getting-started/nixos/#config-ref
+    # https://docs.noctalia.dev/noctalia/configuration/
     settings = {
-      general = {
-        animationSpeed = 1.5;
-        enableShadows = false;
-        radiusRatio = 0.25;
-        screenRadiusRatio = 0;
-        dimmerOpacity = 0.5;
-        lockOnSuspend = true;
-        telemetryEnabled = false;
+      shell = {
+        corner_radius_scale = 0.25;
+        animation.speed = 1.5;
+        panel.shadow = false;
+        time_format = "{:%H:%M}";
+        date_format = "{:%Y-%m-%d}";
+        telemetry_enabled = false;
       };
       bar = {
-        capsuleOpacity = 1;
-        widgets = {
-          left = [
-            { id = "ControlCenter"; useDistroLogo = true; }
-            { id = "Workspace"; }
-            { id = "ActiveWindow"; maxWidth = 500; }
+        order = [ "main" ];
+        default = {
+          radius = 0;
+          scale = 1.1;
+          margin_ends = 0;
+          padding = 0;
+          capsule = true;
+          capsule_thickness = 0.8;
+          capsule_padding = 4;
+
+          capsule_group = [
+            {
+              id = "sysmon";
+              members = [
+                "sysmon"
+                "sysmon-temp"
+                "sysmon-ram"
+                "sysmon-disk"
+              ];
+            }
+          ];
+
+          start = [
+            "control-center"
+            "workspaces"
+            "active_window"
           ];
           center = [
-            { id = "Clock"; formatHorizontal = "HH:mm ddd, MMM dd"; }
+            "clock"
+            "noctalia/timer:bar"
           ];
-          right = [
-            { id = "Network"; }
-            { id = "Bluetooth"; }
-            { id = "SystemMonitor"; showNetworkStats = true; compactMode = false; }
-            { id = "Volume"; }
-            { id = "Microphone"; }
-            { id = "Brightness"; }
-            { id = "Battery"; displayMode = "alwaysShow"; }
-            { id = "NightLight"; }
-            { id = "NotificationHistory"; }
-            { id = "KeepAwake"; }
-            { id = "PowerProfile"; }
-            { id = "Tray"; }
-            { id = "SessionMenu"; }
+          end = [
+            "network"
+            "bluetooth"
+            "group:sysmon"
+            "volume"
+            "input-volume"
+            "privacy"
+            "brightness"
+            "battery"
+            "nightlight"
+            "notifications"
+            "caffeine"
+            "power_profile"
+            "tray"
+            "session"
           ];
         };
       };
-      controlCenter =
-        let
-          ids = map (id: { inherit id; });
-          idc = map (id: { inherit id; enabled = true; });
-        in
-        {
-          shortcuts = {
-            left = ids [
-              "Network"
-              "Bluetooth"
-            ];
-            right = ids [
-              "Notifications"
-              "PowerProfile"
-              "KeepAwake"
-              "NightLight"
-            ];
-          };
-          cards = idc [
-            "profile-card"
-            "shortcuts-card"
-            "audio-card"
-            "brightness-card"
-            #"weather-card"
-            "media-sysmon-card"
-          ];
+
+      widget = {
+        active_window = {
+          max_length = 500;
+          title_scroll = "on_hover";
         };
+        clock.format = "{:%H:%M %a, %b %d}";
+        network.show_label = false;
+        tray.drawer = true;
+        power_profile.actions = {
+          scroll_up = "none";
+          scroll_down = "none";
+        };
+        # Custom widgets
+        input-volume = {
+          type = "volume";
+          device = "input";
+        };
+        sysmon-temp = {
+          type = "sysmon";
+          stat = "cpu_temp";
+        };
+        sysmon-ram = {
+          type = "sysmon";
+          stat = "ram_used";
+        };
+        sysmon-disk = {
+          type = "sysmon";
+          stat = "disk_used_pct";
+        };
+      };
 
       dock.enabled = false;
 
-      appLauncher.terminalCommand = "alacritty -e";
+      desktop_widgets.enabled = false;
+
+      wallpaper.directory = "${config.xdg.userDirs.pictures}";
+      backdrop.enabled = true;
+
+      theme = {
+        mode = "dark";
+        templates.enable_community_templates = false;
+      };
 
       location = {
-        name = "Italy";
-        firstDayOfWeek = 1;
+        auto_locate = false;
+        address = "Italy";
+        # custom_schedule = true;
+        # sunrise = "07:00";
+        # sunset = "20:00";
       };
 
-      wallpaper = {
-        overviewEnabled = true;
-        directory = "${config.xdg.userDirs.pictures}";
-      };
-
-      nightLight = {
+      nightlight = {
         enabled = true;
-        nightTemp = "4500";
-        dayTemp = "6500";
-        autoSchedule = false;
-        manualSunrise = "07:00";
-        manualSunset = "20:00";
+        temperature_night = "4500";
+        temperature_day = "6500";
+      };
+
+      plugins = {
+        enabled = [
+          "noctalia/timer"
+        ];
+        auto_update = "official";
       };
     };
   };
 
-  services.swayidle.events."before-sleep" = "noctalia-shell ipc call lockScreen lock";
+  services.swayidle.events."before-sleep" = "noctalia msg session lock";
 }
