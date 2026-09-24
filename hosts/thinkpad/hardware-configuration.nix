@@ -18,49 +18,49 @@
     {
       device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
       fsType = "btrfs";
-      options = [ "discard=async" "noatime" "compress=zstd:2" "autodefrag" "subvol=@" ];
+      options = [ "discard=async" "noatime" "compress=zstd:2" "subvol=@" ];
     };
 
   fileSystems."/btrfs_root" =
     {
       device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
       fsType = "btrfs";
-      options = [ "discard=async" "noatime" "autodefrag" ];
+      options = [ "discard=async" "noatime" ];
     };
 
   fileSystems."/snapshot" =
     {
       device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
       fsType = "btrfs";
-      options = [ "discard=async" "noatime" "compress=zstd:2" "autodefrag" "subvol=@snapshot" ];
+      options = [ "discard=async" "noatime" "compress=zstd:2" "subvol=@snapshot" ];
     };
 
   fileSystems."/home" =
     {
       device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
       fsType = "btrfs";
-      options = [ "discard=async" "noatime" "compress=zstd:2" "autodefrag" "subvol=@home" ];
+      options = [ "discard=async" "noatime" "compress=zstd:2" "subvol=@home" ];
     };
 
   fileSystems."/root" =
     {
       device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
       fsType = "btrfs";
-      options = [ "discard=async" "noatime" "compress=zstd:2" "autodefrag" "subvol=@root" ];
+      options = [ "discard=async" "noatime" "compress=zstd:2" "subvol=@root" ];
     };
 
   fileSystems."/nix" =
     {
       device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
       fsType = "btrfs";
-      options = [ "discard=async" "noatime" "compress=zstd:2" "autodefrag" "subvol=@nix" ];
+      options = [ "discard=async" "noatime" "compress=zstd:2" "subvol=@nix" ];
     };
 
   fileSystems."/swap" =
     {
       device = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
       fsType = "btrfs";
-      options = [ "discard=async" "noatime" "autodefrag" "subvol=@swap" ];
+      options = [ "discard=async" "noatime" "subvol=@swap" ];
     };
 
   fileSystems."/boot" =
@@ -71,17 +71,20 @@
     };
 
   swapDevices = [{ device = "/swap/swapfile"; }];
+
+  boot.zswap = {
+    enable = true;
+    compressor = "lz4";
+    maxPoolPercent = 30; # Percentage of ram that can be used
+    shrinkerEnabled = true; # Shrink pool when on high memory pressure
+  };
+  boot.kernel.sysctl."vm.swappiness" = 90; # Default is ~60
+
   # Hibernation stuff
   boot.resumeDevice = "/dev/disk/by-uuid/671620d3-6b9f-412f-8e0f-1baaf599156c";
   boot.kernelParams = [
     "resume_offset=103867648"
-    # Zswap configs
-    "zswap.enabled=1"
-    "zswap.compressor=lz4" # Compression algorithm: lz4, lz4hc, zstd, lzo, 842, defalte
-    "zswap.max_pool_percent=40" # Percentage of ram that can be used
-    "zswap.shrinker_enabled=1" # Shrink pool when on high memory pressure
   ];
-  boot.initrd.systemd.enable = true; # Required to use lz4 as compressor for zswap
   powerManagement.enable = true;
 
   # zramSwap = {
