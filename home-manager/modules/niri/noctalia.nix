@@ -1,5 +1,65 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
+let
+  # Sometimes I have the laptop lid closed and use only the external monitor,
+  # but when it goes in power save (or wayidle do its job) the system thinks the
+  # display is powered down or unplugged and systemd restart watching the lid switch.
+  # This is not a fix, just a palliative
+  noctalia-lid-switch-handler = pkgs.writeShellScriptBin "lid-toggle" ''
+    # pidfile in XDG_RUNTIME_DIR, fallback to /tmp with UID
+    if [ -n "''${XDG_RUNTIME_DIR:-}" ] && [ -d "''${XDG_RUNTIME_DIR:-}" ] && [ -w "''${XDG_RUNTIME_DIR:-}" ]; then
+        pidfile="''${XDG_RUNTIME_DIR}/lid-switch-inhibit.pid"
+    else
+        _uid="$(id -u 2>/dev/null || echo 0)"
+        pidfile="/tmp/lid-switch-inhibit-''${_uid}.pid"
+    fi
+
+    # Lid switch inhibited, kill process and remove pidfile
+    if [ -f "$pidfile" ]; then
+        # Check if file is not empty
+        if [ -s "$pidfile" ]; then
+            read -r pid < "$pidfile"
+            # Check if the process actually exists
+            if kill -0 "$pid" 2>/dev/null; then
+                # Actually kill the process, then wait a bit
+                kill "$pid" 2>/dev/null || true
+                echo "Lid switch inhibition removed (PID $pid)"
+                sleep 0.3
+            fi
+            # Verify the status
+            if systemd-inhibit --who="lid-toggle" --list --no-legend 2>/dev/null | grep -q "$pid"; then
+                echo "Warning: inhibitor still listed" >&2
+            fi
+            echo "Removing stale pidfile" >&2
+            rm -f "$pidfile"
+            ${pkgs.libnotify.out.outPath}/bin/notify-send -a "lid-toggle" "Lid switch inhibition removed"
+            exit 0
+        fi
+        # Else: fallback to inhibit
+    fi
+
+    # Lid switch not inhibited
+    # `tail -f /dev/null` is like an infinite sleep
+    systemd-inhibit --what=handle-lid-switch --who=lid-toggle --why="Ignore lid switch" --mode=block tail -f /dev/null >/dev/null 2>&1 &
+    pid=$!
+
+    printf "%s\n" "$pid" > "$pidfile"
+    chmod 600 "$pidfile"
+
+    sleep 0.3
+    if systemd-inhibit --who="lid-toggle" --list --no-legend 2>/dev/null | grep -q "$pid"; then
+        echo "Lid switch inhibition active (PID $pid)"
+        ${pkgs.libnotify.out.outPath}/bin/notify-send -a "lid-toggle" "Lid switch inhibition active"
+    else
+        # Cleanup on failure
+        if ! kill -0 "$pid" 2>/dev/null; then
+            echo "Error: failed to create inhibition" >&2
+            rm -f "$pidfile"
+            exit 1
+        fi
+    fi
+  '';
+in
 {
   programs.noctalia = {
     enable = true;
@@ -57,6 +117,7 @@
             "nightlight"
             "notifications"
             "caffeine"
+            "inhibit-lidswitch"
             "power_profile"
             "tray"
             "session"
@@ -92,6 +153,11 @@
         sysmon-disk = {
           type = "sysmon";
           stat = "disk_used_pct";
+        };
+        inhibit-lidswitch = {
+          type = "custom_button";
+          glyph = "device-desktop";
+          actions.left = "exec ${noctalia-lid-switch-handler}/bin/lid-toggle";
         };
       };
 
