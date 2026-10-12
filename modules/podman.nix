@@ -5,6 +5,11 @@
     enable = true;
     dockerCompat = true;
     defaultNetwork.settings.dns_enabled = true;
+    autoPrune = {
+      enable = true;
+      dates = "weelly"; # The default
+      flags = [ "--all" ];
+    };
   };
 
   environment.systemPackages = with pkgs; [
