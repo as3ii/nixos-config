@@ -34,6 +34,7 @@
           };
           excludes = [
             "secrets/"
+            ".sops.yaml"
           ];
         };
         # Nix
