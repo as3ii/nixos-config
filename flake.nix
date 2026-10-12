@@ -62,8 +62,8 @@
             modules = [
               {
                 nixpkgs.config.allowUnsupportedSystem = true;
-                nixpkgs.hostPlatform.system = "aarch64-linux";
-                nixpkgs.buildPlatform.system = system;
+                nixpkgs.hostPlatform = "aarch64-linux";
+                nixpkgs.buildPlatform = system;
               }
             ];
           }).config.system.build.sdImage;
@@ -84,7 +84,6 @@
               sops-nix.nixosModules.sops
               {
                 nix.settings.system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" "gccarch-znver4" "gccarch-x86-64-v4" ];
-                nixpkgs.config.allowUnfree = true;
                 home-manager = {
                   extraSpecialArgs = inputs // { inherit system; };
                   # Fix custom rbw module
@@ -97,14 +96,13 @@
             ];
           };
 
-          rpi3 = nixpkgs.lib.nixosSystem rec {
+          rpi3 = nixpkgs.lib.nixosSystem {
             system = "aarch64-linux";
             specialArgs = inputs;
 
             modules = [
               nixos-hardware.nixosModules.raspberry-pi-3
               "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-              { nixpkgs.config.allowUnfree = true; }
               (import ./nix/pkgs)
               ./hosts/rpi3/configuration.nix
             ];
