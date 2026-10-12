@@ -69,7 +69,7 @@ in
     #"pcie_aspm=off"
     #"pcie_port_pm=off"
     # Fix amdgpu PSR causing glitches
-    "amdgpu.dcdebugmask=0x10"
+    # "amdgpu.dcdebugmask=0x10" # Should be fixed: https://gitlab.freedesktop.org/drm/amd/-/work_items/4141#note_3613083
   ];
 
   # Hostname
@@ -79,7 +79,7 @@ in
     enable = true;
     enable32Bit = true;
   };
-  hardware.amdgpu.opencl.enable = true;
+  #hardware.amdgpu.opencl.enable = true;
 
   # Config for nvidia module
   nvidia.amdId = "PCI:198:0:0";

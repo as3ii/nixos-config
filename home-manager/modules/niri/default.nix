@@ -57,6 +57,9 @@
     networkmanagerapplet
     playerctl
   ] ++ (with pkgs.kdePackages; [
+    breeze
+    breeze.qt5
+    breeze-icons
     ark # GUI archive manager
     dolphin # GUI file manager
     kio # Network shares
@@ -81,6 +84,7 @@
   };
   gtk = {
     enable = true;
+    colorScheme = "dark";
     theme = {
       package = pkgs.gnome-themes-extra;
       name = "Adwaita-dark";
