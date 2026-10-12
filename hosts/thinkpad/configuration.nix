@@ -72,6 +72,10 @@ in
     # "amdgpu.dcdebugmask=0x10" # Should be fixed: https://gitlab.freedesktop.org/drm/amd/-/work_items/4141#note_3613083
   ];
 
+  # Enable aarch64 emulation via binfmt+qemu
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.preferStaticEmulators = true;
+
   # Hostname
   networking.hostName = "${user}-thinkpad-nixos";
 
