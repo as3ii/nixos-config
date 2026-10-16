@@ -137,7 +137,7 @@
 
   # Now pure! Rename the home-manager config symlink, copy as a file,
   # patch the config and then actually run rbw. At every execution of rbw/rbw-agent
-  rbw.email-file = config.sops.secrets.rbw-email.path;
+  rbw.sops-secret-name = "rbw-email";
 
   home.username = "as3ii";
   home.homeDirectory = "/home/as3ii";

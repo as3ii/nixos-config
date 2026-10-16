@@ -1,26 +1,26 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, options, ... }:
 
 let
   cfg = config.rbw;
+  hasSops = (builtins.hasAttr "sops" options);
   confpath = ''''${XDG_CONFIG_HOME-"$HOME/.config"}/rbw/config.json'';
-  rbw-wrapper = pkgs.symlinkJoin {
+  rbw = if !hasSops && cfg.email != null then cfg.package else
+  pkgs.symlinkJoin {
     name = "rbw";
     paths = [ cfg.package ];
     nativeBuildInputs = [ pkgs.makeWrapper ];
     buildInputs = [ pkgs.replace-secret ];
     postBuild = ''
       wrapProgram $out/bin/rbw \
-        --run '[ -h "${confpath}" ] && mv -f "${confpath}" "${confpath}.lnk"' \
-        --run '[ -h "${confpath}.lnk" ] && install -m 600 "${confpath}.lnk" "${confpath}"' \
-        --run '${pkgs.replace-secret}/bin/replace-secret "@email_placeholder@" "${cfg.email-file}" "${confpath}"'
+        --run '[ -e "${confpath}" ] && mv -f "${confpath}" "${confpath}.old"' \
+        --run 'ln -s "${config.sops.templates."rbw-config.json".path}" "${confpath}"'
       wrapProgram $out/bin/rbw-agent \
-        --run '[ -h "${confpath}" ] && mv -f "${confpath}" "${confpath}.lnk"' \
-        --run '[ -h "${confpath}.lnk" ] && install -m 600 "${confpath}.lnk" "${confpath}"' \
-        --run '${pkgs.replace-secret}/bin/replace-secret "@email_placeholder@" "${cfg.email-file}" "${confpath}"'
+        --run '[ -e "${confpath}" ] && mv -f "${confpath}" "${confpath}.old"' \
+        --run 'ln -s "${config.sops.templates."rbw-config.json".path}" "${confpath}"'
     '';
   };
-  rofi-rbw-wrapper-wayland = pkgs.rofi-rbw.override {
-    rbw = rbw-wrapper;
+  rofi-rbw-wayland = pkgs.rofi-rbw.override {
+    rbw = rbw;
     waylandSupport = true;
   };
 in
@@ -40,38 +40,56 @@ in
         Email to use to log in to bitwarden.
       '';
     };
-    email-file = lib.mkOption {
-      type = nullOr path;
+  } // lib.optionalAttrs hasSops {
+    sops-secret-name = lib.mkOption {
+      type = nullOr str;
       default = null;
-      example = /path/to/email-file.txt;
+      example = "rbw-email";
       description = ''
-        File containing the email.
+        Name of the secret, used with `config.sops.secrets.''${sops-secret-name}`
       '';
     };
   };
 
   config = {
-    assertions = [
-      {
-        assertion = !(cfg.email == null && cfg.email-file == null);
-        message = "Set a valid email-file or email.";
-      }
-      {
-        assertion = (cfg.email == null || cfg.email-file == null);
-        message = "Do not set both email and email-file.";
-      }
-    ];
+    assertions =
+      if !hasSops then [
+        {
+          assertion = (cfg.email != null);
+          message = "Set a valid rbw email.";
+        }
+      ] else [
+        {
+          assertion = !(cfg.email == null && cfg.sops-secret-name == null);
+          message = "Set a valid rbw email or sops-secret-name.";
+        }
+        {
+          assertion = (cfg.email == null || cfg.sops-secret-name == null);
+          message = "Do not set both rbw email and sops-secret-name.";
+        }
+        {
+          assertion = (cfg.sops-secret-name == null || builtins.hasAttr cfg.sops-secret-name config.sops.secrets);
+          message = "Sops secret name for rbw do not exist";
+        }
+      ];
+
     programs.rbw = {
       enable = true;
-      package = if cfg.email-file != null then rbw-wrapper else cfg.package;
-      settings = {
-        email = if cfg.email-file != null then "@email_placeholder@" else cfg.email;
+      package = rbw;
+      settings = lib.mkIf (cfg.email != null) {
+        email = cfg.email;
         pinentry = pkgs.pinentry-qt;
       };
     };
 
-    home.packages = [
-      rofi-rbw-wrapper-wayland
-    ];
+    home.packages = [ rofi-rbw-wayland ];
+  } // lib.optionalAttrs hasSops {
+    sops.templates."rbw-config.json".content = lib.mkIf (cfg.sops-secret-name != null) ''
+      {
+        "email": "${config.sops.placeholder.${cfg.sops-secret-name}}",
+        "lock_timeout": 300,
+        "pinentry": "${lib.getExe pkgs.pinentry-qt}"
+      }
+    '';
   };
 }
