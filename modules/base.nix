@@ -78,23 +78,15 @@
     DefaultTimeoutStopSec = lib.mkDefault "60s";
   };
 
-  # Fonts
-  fonts = lib.mkDefault {
-    packages = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-color-emoji
-      font-awesome
-      jetbrains-mono
-      nerd-fonts.jetbrains-mono
-    ];
-    fontDir.enable = true;
+  # Reduce resource usage of nix-daemon
+  systemd.services.nix-daemon.serviceConfig = {
+    Nice = lib.mkForce 15;
+    CPUSchedulingPolicy = lib.mkForce "idle";
+    IOSchedulingClass = lib.mkForce "idle";
   };
 
-  # List services that you want to enable:
-
   # Firmware updates
-  services.fwupd.enable = true;
+  services.fwupd.enable = lib.mkDefault true;
 
   # use dbus-broker instead of the old dbus implementation
   services.dbus.implementation = "broker";

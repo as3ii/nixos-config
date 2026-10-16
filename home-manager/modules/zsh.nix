@@ -12,7 +12,7 @@
       extended = true;
       ignoreAllDups = true;
       ignoreSpace = true;
-      path = "$HOME/.cache/zsh/history";
+      path = "${config.xdg.cacheHome}/zsh/history";
       save = 1000000;
       saveNoDups = true;
       share = true;

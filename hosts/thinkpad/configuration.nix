@@ -8,6 +8,7 @@ in
     [
       ./hardware-configuration.nix
       ../../modules/base.nix
+      ../../modules/fonts.nix
       ../../modules/audio.nix
       ../../modules/bluetooth.nix
       ../../modules/podman.nix
@@ -33,11 +34,11 @@ in
     extraRules = [{
       commands = [
         {
-          command = "${pkgs.coreutils-full}/bin/test";
+          command = "${pkgs.coreutils}/bin/test";
           options = [ "NOPASSWD" ];
         }
         {
-          command = "${pkgs.coreutils-full}/bin/readlink";
+          command = "${pkgs.coreutils}/bin/readlink";
           options = [ "NOPASSWD" ];
         }
         {
@@ -49,7 +50,7 @@ in
     }];
     extraConfig = with pkgs; ''
       Defaults:picloud secure_path="${lib.makeBinPath [
-        btrfs-progs coreutils-full
+        btrfs-progs coreutils
       ]}:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
     '';
   };

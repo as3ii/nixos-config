@@ -115,8 +115,6 @@
     clippy = "cargo clean; cargo fmt --all; cargo clippy -- -W clippy::pedantic";
   };
 
-  fonts.fontconfig.enable = true;
-
   xdg.enable = true;
   xdg.userDirs.enable = true;
 
