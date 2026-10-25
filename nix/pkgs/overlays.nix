@@ -17,28 +17,28 @@
     (_: prev: {
       joshuto = prev.callPackage ./joshuto.nix { };
       xwayland-satellite = prev.xwayland-satellite.overrideAttrs (final': prev': {
-        version = "0.8.3-20260925";
+        version = "0.8.3-20261025";
         src = prev.fetchFromGitHub {
           owner = "Supreeeme";
           repo = "xwayland-satellite";
-          rev = "63cdf17f17b4ee231ef862690048549f218e8e0e";
-          hash = "sha256-FBRBINpTMhkhVm9irSqeWKmI8/QMyXcTRxHeCMVvxdc=";
+          rev = "43e91dc6be074d1a88583082b2fcb0829ac36c16";
+          hash = "sha256-I0h7d0bE+5syvQdhLXafzEPVqDospcAtagC1IqBJEyM=";
           # hash = prev.lib.fakeHash;
         };
         cargoDeps = prev'.cargoDeps.overrideAttrs (_: prev'': {
           vendorStaging = prev''.vendorStaging.overrideAttrs {
             inherit (final') src;
-            outputHash = "sha256-gMGFvnbxM3hD5fmkSimaFd87GEf6BXFe/MGjoS6VNVU=";
+            outputHash = "sha256-gyQmdkWxnoaJzW1KN40ZmRTjVbfpt6tA8JHUMds35ag=";
           };
         });
       });
       niri = prev.niri.overrideAttrs (final': prev': {
-        version = "26.04-unstable-20261012";
+        version = "26.04-unstable-20261025";
         src = prev.fetchFromGitHub {
           owner = "niri-wm";
           repo = "niri";
-          rev = "90af637e466687ebce85d5e037c83871a1c0376a";
-          hash = "sha256-i5vn7WnkeIiMVZO/kQTlZWIkaZIbSExhyVc9WOhAFeY=";
+          rev = "75db0a3c700e7587bff847f995d5b0c0fe8c7efb";
+          hash = "sha256-221lKWomR2hjeWo/t6BD0QHJh8FbN6+punXbwU4wilY=";
           # hash = prev.lib.fakeHash;
         };
         nativeInstallCheckInputs = [ ]; # Disables version check
@@ -52,7 +52,7 @@
         cargoDeps = prev'.cargoDeps.overrideAttrs (_: prev'': {
           vendorStaging = prev''.vendorStaging.overrideAttrs {
             inherit (final') src;
-            outputHash = "sha256-JJfJ8o5yuI8mfXDkEfdCVcqQpxIXICV3dji7HoLgKBI=";
+            outputHash = "sha256-4VQqTrVB6p8M3U7xqF+K6vSKrQcqhW+OnZyAp6j/fGA=";
           };
         });
       });
