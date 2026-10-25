@@ -1,4 +1,4 @@
-{ config, lib, modulesPath, ... }:
+{ lib, modulesPath, ... }:
 
 {
   imports =
@@ -85,7 +85,6 @@
   boot.kernelParams = [
     "resume_offset=103867648"
   ];
-  powerManagement.enable = true;
 
   services = {
     btrfs.autoScrub = {
@@ -152,5 +151,5 @@
   # Some default options
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault true;
 }
