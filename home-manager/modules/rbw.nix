@@ -4,7 +4,7 @@ let
   cfg = config.rbw;
   hasSops = (builtins.hasAttr "sops" options);
   confpath = ''''${XDG_CONFIG_HOME-"$HOME/.config"}/rbw/config.json'';
-  rbw = if !hasSops && cfg.email != null then cfg.package else
+  rbw = if !(hasSops && cfg.sops-secret-name != null) then cfg.package else
   pkgs.symlinkJoin {
     name = "rbw";
     paths = [ cfg.package ];

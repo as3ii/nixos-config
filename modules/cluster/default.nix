@@ -589,7 +589,7 @@ in
             otherOptions = lib.mkOption {
               type = lib.types.submodule {
                 # Allow setting only non-read-only options, and exclude "enable" and "port"
-                options = removeAttrs (lib.filterAttrs (_: opt: !(opt.readOnly or false)) options.${name}) [ "enable" "port" ];
+                options = removeAttrs (lib.filterAttrs (_: opt: !(opt.readOnly or false)) (options.${name} or { })) [ "enable" "port" ];
               };
               default = { };
               description = "Other service-specific options";

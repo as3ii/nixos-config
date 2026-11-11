@@ -7,7 +7,7 @@
     defaultNetwork.settings.dns_enabled = true;
     autoPrune = {
       enable = true;
-      dates = "weelly"; # The default
+      dates = "weekly"; # The default
       flags = [ "--all" ];
     };
   };

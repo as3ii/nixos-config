@@ -49,7 +49,7 @@ in
       users = [ "btrbk" ];
     }];
     extraConfig = with pkgs; ''
-      Defaults:picloud secure_path="${lib.makeBinPath [
+      Defaults:btrbk secure_path="${lib.makeBinPath [
         btrfs-progs coreutils
       ]}:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
     '';

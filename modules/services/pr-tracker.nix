@@ -98,7 +98,8 @@ in
             Type = "simple";
             Restart = "on-failure";
             ExecStartPre = pr-tracker-init;
-            ExecStart = "${lib.getExe cfg.package} --path '${cfg.dataDir}/nixpkgs' --remote origin --user-agent '${cfg.userAgent}' --source-url '${cfg.sourceUrl}' < '${cfg.githubTokenFile}'";
+            ExecStart = "${lib.getExe cfg.package} --path '${cfg.dataDir}/nixpkgs' --remote origin --user-agent '${cfg.userAgent}' --source-url '${cfg.sourceUrl}'";
+            StandardInput = "file:${cfg.githubTokenFile}";
             WorkingDirectory = cfg.dataDir;
             ReadWritePaths = [
               cfg.dataDir
@@ -136,9 +137,9 @@ in
         description = "Timer to sync nixpkgs git repository";
         wantedBy = [ "timers.target" ];
         timerConfig = {
-          OnCalendar = cfg.refreshInterval;
+          OnBootSec = "10m";
+          OnUnitInactiveSec = cfg.refreshInterval;
           AccuracySec = "10min";
-          persistent = true;
         };
       };
     };
