@@ -2,7 +2,7 @@
 
 let
   cfg = config.espanso;
-  lang = config.services.xserver.xkb.layout or config.console.keyMap or "us";
+  lang = config.home.keyboard.layout or "us";
   pkg-wayland = with pkgs; [
     wl-clipboard
     ydotool

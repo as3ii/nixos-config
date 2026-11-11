@@ -142,6 +142,11 @@
   home.username = "as3ii";
   home.homeDirectory = "/home/as3ii";
 
+  home.keyboard = {
+    layout = "us";
+    variant = "altgr-intl";
+  };
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
