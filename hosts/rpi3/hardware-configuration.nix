@@ -12,32 +12,63 @@
   boot.extraModulePackages = [ ];
   boot.supportedFilesystems.zfs = false;
 
-  fileSystems."/" =
+  fileSystems."/" = lib.mkForce
     {
+      device = "none";
+      fsType = "tmpfs";
+      options = [
+        "size=25%"
+        "mode=755"
+      ];
+    };
+
+  fileSystems."/persistent" =
+    {
+      neededForBoot = true;
       device = "/dev/disk/by-label/NIXOS_SD";
       fsType = "ext4";
       options = [ "noatime" ];
+    };
+
+  fileSystems."/nix" =
+    {
+      neededForBoot = true;
+      device = "/persistent/nix";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
+  fileSystems."/boot" =
+    {
+      neededForBoot = true;
+      device = "/persistent/boot";
+      fsType = "none";
+      options = [ "bind" ];
     };
 
   fileSystems."/boot/firmware" =
     {
       device = "/dev/disk/by-label/FIRMWARE";
       fsType = "vfat";
-      options = [ "umask=0077" ];
+      # Override the noauto added by upstream sd-image.nix
+      options = lib.mkForce [ "nofail" "umask=0077" ];
     };
 
-  swapDevices = [{ device = "/swap/swapfile"; }];
-  zramSwap = {
+  swapDevices = [{
+    device = "/persistent/swap/swapfile";
+    size = 1 * 1024; # In MiB
+  }];
+  # Fix if the folder do not exists
+  systemd.services.mkswap-persistent-swap-swapfile.preStart = "mkdir -p /persistent/swap";
+
+  boot.zswap = {
     enable = true;
-    priority = 10;
-    algorithm = "zstd";
+    compressor = "lz4";
+    maxPoolPercent = 30; # Percentage of ram that can be used
+    shrinkerEnabled = true; # Shrink pool when on high memory pressure
   };
-  # Drastically reduce latency and increase IOPS (but reduces raw speed) when using zram+zstd
-  # This may reduce the performance of on-disk swap
-  # See: https://notes.xeome.dev/notes/Zram#conclusion
-  boot.kernel.sysctl."vm.page-cluster" = 0; # Default value: 3
+  boot.kernel.sysctl."vm.swappiness" = 90; # Default is ~60
 
   # Some default options
-  networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }

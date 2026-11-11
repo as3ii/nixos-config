@@ -48,13 +48,31 @@
     lsof
     inetutils
     dig
-    htop
     bash-completion
     (neovim.override { vimAlias = true; viAlias = true; })
     smartmontools
     openssh
     openssl
   ];
+
+  programs.htop = {
+    enable = true;
+    settings = {
+      hide_kernel_threads = true;
+      hide_userland_threads = true;
+      show_program_path = false;
+      highlight_base_name = true;
+      tree_view = true;
+      tree_view_always_by_pid = true;
+      show_cpu_usage = true;
+      show_cpu_frequency = true;
+      show_cpu_temperature = true;
+      column_meters_0 = [ "AllCPUs" "Memory" "Swap" ];
+      column_meter_modes_0 = [ 1 1 1 ];
+      column_meters_1 = [ "Tasks" "LoadAverage" "Uptime" "ZswapStats" "DiskIO" "NetworkIO" ];
+      column_meter_modes_1 = [ 2 2 2 2 2 2 ];
+    };
+  };
 
   programs.git = {
     enable = true;
