@@ -3,7 +3,7 @@ keys:
   - &trickster age1tay4thr4hfs2d0qkhrd3fzl8yfwwq4f0d4s650p60xw2kqvjpcas8sd68v
   - &rpi3 age1j65dvjra30tqqc04esaxt48xml5kca8yf72sfvj5lwe43vp9gq5sqdz4cr
 creation_rules:
-  - path_regex: secrets/thinkpad-as3ii\.yaml$
+  - path_regex: secrets/thinkpad-as3ii.yaml$
     key_groups:
       - age:
           - *thinkpad-as3ii

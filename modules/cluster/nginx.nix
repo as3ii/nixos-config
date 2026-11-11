@@ -8,7 +8,7 @@ let
   landingHosts = [ "proxy.${cluster.domain}" ] ++ (map (n: "${n}.${cluster.domain}") proxyNames);
   landingPageFile =
     if cluster.landingPage.file != null
-    then cluster.landingPage.file
+    then pkgs.writeTextDir "index.html" (builtins.readFile cluster.landingPage.file)
     else
       pkgs.writeTextDir "index.html" ''
         <!DOCTYPE html>
@@ -33,7 +33,7 @@ let
                   ) (builtins.attrNames proxiedServices)
                 )
               }
-            <ul>
+            </ul>
           </main>
           <footer>
             <p> as3ii - ${cluster.adminEmail} - &copy; 2026</p>
