@@ -29,7 +29,7 @@
     wayland-utils
     distrobox
     (yt-dlp.override { withAlias = true; })
-    ffmpeg-full
+    ffmpeg
     obs-studio-plugins.obs-vkcapture # required even if OBS is in flatpak
     schedtool
 
